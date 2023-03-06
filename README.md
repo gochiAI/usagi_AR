@@ -4,7 +4,7 @@ There is a possibility that this project may be closed.
 <h1>Customization</h1>
 
 - Remove access to the stamp rally  
-- I18nization of the guide. 
+- <a href="https://gitlab.com/gochi_AI/usagi_AR/-/snippets/2509393">I18nization of the guide. </a>
 - AR using different images 
 
 <h1>ごちうさ展</h1>

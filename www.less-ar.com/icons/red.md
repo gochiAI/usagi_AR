@@ -1,6 +1,16 @@
-<!doctype html>
-<html lang="ja" style="height: 100%;width: 100%;">
-<head><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+# Your Favicon Package
+
+This package was generated with [RealFaviconGenerator](https://realfavicongenerator.net/) [v0.16](https://realfavicongenerator.net/change_log#v0.16)
+
+## Install instructions
+
+To install this package:
+
+Extract this package in <code>&lt;web site&gt;/icons/</code>. If your site is <code>http://www.example.com</code>, you should be able to access a file named <code>http://www.example.com/icons/favicon.ico</code>.
+
+Insert the following code in the `head` section of your pages:
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="194x194" href="/icons/favicon-194x194.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-chrome-192x192.png">
@@ -14,24 +24,5 @@
     <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
     <meta name="msapplication-config" content="/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="css/app.css%3Fts=1677653347.css">
 
-    <title>LESSAR</title>
-</head>
-
-<body>
-
-<div id="error" class="solid-screen-container show">
-    
-    <div class="error-message-box">
-        <img class="error-message-box__icon"    src="img/animal_lesserpanda.png" >
-        <p   class="error-message-box__title-less-message" id="error-message" >原因不明のエラーです</p>
-    </div>
-</div>
-</body>
-
-</html>
+*Optional* - Check your favicon with the [favicon checker](https://realfavicongenerator.net/favicon_checker)

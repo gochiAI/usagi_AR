@@ -1,6 +1,6 @@
 // https://qiita.com/yhrym/items/f31669d48688d32155b4
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
 workbox.core.skipWaiting();
 

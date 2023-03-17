@@ -8,7 +8,7 @@ const urlsToCache = [
   'css/*',
   '/img/*',
   'js/*',
-  '../../icons/*',
+  '../.../icons/*',
   '../../aws.gochiusa.cpm/*'
 ];
 

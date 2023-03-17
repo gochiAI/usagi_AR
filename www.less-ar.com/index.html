@@ -1,28 +1,49 @@
-<head><link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="194x194" href="../icons/favicon-194x194.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../icons/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
-    <link rel="manifest" href="../icons/site.webmanifest">
-    <link rel="mask-icon" href="../icons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="../icons/favicon.ico">
+<html lang="ja">
+
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+      <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="194x194" href="./icons/favicon-194x194.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="manifest" href="./site.json">
+    <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./icons/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Usagi AR">
     <meta name="application-name" content="Usagi AR">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="msapplication-TileImage" content="../icons/mstile-144x144.png">
-    <meta name="msapplication-config" content="../icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff"></head>
-<a href="4db281b2-a320.html"><img width="300px" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/1.png"></a>
+    <meta name="msapplication-TileImage" content="./icons/mstile-144x144.png">
+    <meta name="msapplication-config" content="./icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  <title>HOME</title>
+</head>
+    <body>
+<a href="4db281b2-a320.html"><img alt="cocoa rize" width="300px" height="auto" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/1.png"></a>
 
-<a href="6cefc7d7-0f20.html"><img width="300px" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/2.png"></a>
+<a href="6cefc7d7-0f20.html"><img alt="shyaro maya" width="300px" height="auto" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/2.png"></a>
 
 
-<a href="ca5bc889-d2fd.html"><img width="300px" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/3.png"></a>
+<a href="ca5bc889-d2fd.html"><img alt="chino fuyu" width="300px" height="auto" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/3.png"></a>
 
-<a href="d149ac74-9456.html"><img width="300px" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/4.png"></a>
+<a href="d149ac74-9456.html"><img alt="chiya megu" width="300px" height="auto" src="https://gochi_ai.gitlab.io/usagi_AR/aws.gochiusa.com/ogp/4.png"></a>
 
 <a href="37cg1sk9-h612.html">チノ</a>
 <a href="z5xa90tg-jf7t.html">ココア</a>
 <a href="bhj85dsg-53hv.html">リゼ</a>
 <a href="9j0csbv3-g714.html">シャロ</a>
 <a href="05qj3fhj-84xs.html">千夜</a>
+<script>
+window.addEventListener('load', function () {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("./sw2.js")
+        .then(function (registration) {
+          console.log("sw registed.");
+        }).catch(function (error) {
+          console.warn("sw error.", error);
+        });
+    }
+  });
+  </script>
+    </body></html>

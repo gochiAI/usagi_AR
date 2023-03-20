@@ -53,6 +53,19 @@
     "display": "fullscreen",
     "orientation": "portrait",
     "scope": "https://gochi_ai.gitlab.io/usagi_AR/",
-    "start_url": "https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/"
+    "start_url": "https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/",
+    "related_applications": [ ],
+    "prefer_related_applications": false,
+    "shortcuts" : [
+  {
+    "name": "project page",
+    "url": "https://gitlab.com/gochi_AI/usagi_AR"
+  },
+  {
+    "name": "developer twiiter",
+    "url": "https://twitter.com/gochi_AI"
+  }
+]
+
 
 }

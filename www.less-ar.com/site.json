@@ -54,16 +54,21 @@
     "orientation": "portrait",
     "scope": "https://gochi_ai.gitlab.io/usagi_AR/",
     "start_url": "https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/",
+    "content_security_policy": "default-src 'self'; connect-src https://gitlab.com/gochi_AI/usagi_AR https://twitter.com/gochi_AI;",
     "related_applications": [ ],
     "prefer_related_applications": false,
     "shortcuts" : [
   {
     "name": "project page",
-    "url": "https://gitlab.com/gochi_AI/usagi_AR"
+    "description":"This button will open the project page of this website.",
+    "url": "../RG.html",
+    "icons": [{ "src": "/icons/play-later.png", "sizes": "192x192" }]
   },
   {
     "name": "developer twiiter",
-    "url": "https://twitter.com/gochi_AI"
+    "description":"This button will open the develpoer twitter of this website.",
+    "url": "../RT.html",
+    "icons": [{ "src": "/icons/play-later.png", "sizes": "192x192" }]
   }
 ]
 

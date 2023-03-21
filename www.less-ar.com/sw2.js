@@ -61,7 +61,7 @@ workbox.precaching.precacheAndRoute([
   './sound/Camera-Film01-1.mp3',
 //img
   './img/screen_curve.png',
-  './img/loading.png',
+  './img/loading.gif',
   './img/in-camera-icon-a.png',
   './img/animal_lesserpanda.png',
   './img/262x466.png',

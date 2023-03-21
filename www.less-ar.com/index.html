@@ -72,7 +72,7 @@ div img{
 <script>
 window.addEventListener('load', function () {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register("./sw2.js")
+      navigator.serviceWorker.register("./sw.js")
         .then(function (registration) {
           console.log("sw registed.");
         }).catch(function (error) {

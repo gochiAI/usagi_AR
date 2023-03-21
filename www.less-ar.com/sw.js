@@ -1,78 +1,75 @@
-//from by https://laboradian.com/create-offline-site-using-sw/
-const CACHE_VERSION = 'v1';
-const CACHE_NAME = `${registration.scope}!${CACHE_VERSION}`;
+// https://qiita.com/yhrym/items/f31669d48688d32155b4
 
-// キャッシュするファイルをセットする
-const urlsToCache = [
-  '../*.html',
-  'css/*',
-  '/img/*',
-  'js/*',
-  '../.../icons/*',
-  '../../aws.gochiusa.cpm/*'
-];
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    // キャッシュを開く
-    caches.open(CACHE_NAME)
-    .then((cache) => {
-      // 指定されたファイルをキャッシュに追加する
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
+workbox.core.skipWaiting();
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return cacheNames.filter((cacheName) => {
-        // このスコープに所属していて且つCACHE_NAMEではないキャッシュを探す
-        return cacheName.startsWith(`${registration.scope}!`) &&
-               cacheName !== CACHE_NAME;
-      });
-    }).then((cachesToDelete) => {
-      return Promise.all(cachesToDelete.map((cacheName) => {
-        // いらないキャッシュを削除する
-        return caches.delete(cacheName);
-      }));
-    })
-  );
-});
+workbox.core.clientsClaim();
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-    .then((response) => {
-      // キャッシュ内に該当レスポンスがあれば、それを返す
-      if (response) {
-        return response;
-      }
+workbox.navigationPreload.enable();
 
-      // 重要：リクエストを clone する。リクエストは Stream なので
-      // 一度しか処理できない。ここではキャッシュ用、fetch 用と2回
-      // 必要なので、リクエストは clone しないといけない
-      let fetchRequest = event.request.clone();
+// ------------------  runtime caching starts ---------------------
 
-      return fetch(fetchRequest)
-        .then((response) => {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            // キャッシュする必要のないタイプのレスポンスならそのまま返す
-            return response;
-          }
+// AR imgages
+workbox.routing.registerRoute(
+  new RegExp('../../aws.gochiusa.com/*'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'AR images',
+    maxEntries: 50,
+  })
+);
 
-          // 重要：レスポンスを clone する。レスポンスは Stream で
-          // ブラウザ用とキャッシュ用の2回必要。なので clone して
-          // 2つの Stream があるようにする
-          let responseToCache = response.clone();
+// icon
+workbox.routing.registerRoute(
+  new RegExp('../.../icons/*'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'icons',
+    maxEntries: 50,
+  })
+);
+//pages
+workbox.routing.registerRoute(
+  new RegExp('../*.html'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'pages',
+    maxEntries: 20,
+  })
+);
 
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
 
-          return response;
-        });
-    })
-  );
-});
+// manifest
+workbox.routing.registerRoute(
+  new RegExp('./site.json'),
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+
+
+// ------------------  precaching the assets ---------------------
+workbox.precaching.precacheAndRoute([
+  // css,js
+  './css/app.css',
+  './css/tutorial_common.css',
+  // js
+  './js/loader/DDSLoader.js',
+  './js/loader/TGALoader.js',
+  './js/app_error.js',
+  './js/app.js',
+  './js/ar.js',
+  './js/driver.min.js',
+// sound
+  './sound/Camera-Film01-1.mp3',
+//img
+  './img/screen_curve.png',
+  './img/loading.gif',
+  './img/in-camera-icon-a.png',
+  './img/animal_lesserpanda.png',
+  './img/262x466.png',
+  './img/_sprite_panorama.png',
+  './img/_sprite_menu_icons.png',
+  './img/_sprite_filter_icon.png',
+  './img/_sprite_facepaint_icons.png',
+  './img/camera/change-mid.png',
+  './img/camera/permission_left.png',
+  './img/camera/permission_top.png'
+]);

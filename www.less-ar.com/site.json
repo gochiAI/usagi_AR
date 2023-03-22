@@ -55,7 +55,7 @@
     "scope": "/usagi_AR/",
     "start_url": "/usagi_AR/www.less-ar.com/",
     "id":"/usagi_AR/www.less-ar.com/",
-    "content_security_policy": "default-src 'self'; connect-src https://gitlab.com/gochi_AI/usagi_AR https://twitter.com/gochi_AI;",
+    "content_security_policy": "default-src 'self'; connect-src https://gochiai.github.io/gochi_AI/usagi_AR https://twitter.com/gochi_AI;",
     "related_applications": [ ],
     "prefer_related_applications": false,
     "shortcuts" : [

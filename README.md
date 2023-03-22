@@ -7,23 +7,23 @@ There is a possibility that this project may be closed.
 <h1>Customization</h1>
 
 - Remove access to the stamp rally  
-- <a href="https://gitlab.com/gochi_AI/usagi_AR/-/snippets/2509393">I18nization of the guide. </a>
+- <a href="https://github.com/gochi_AI/usagi_AR/-/snippets/2509393">I18nization of the guide. </a>
 - AR using different images 
 
 # link
 
 ## ごちうさ展
-[ココリゼ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/4db281b2-a320.html)  
-[チノフユ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/6cefc7d7-0f20.html)  
-[シャロマヤ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/ca5bc889-d2fd.html)  
-[メグ千夜](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/d149ac74-9456.html)  
+[ココリゼ](https://gochiai.github.io/usagi_AR/www.less-ar.com/4db281b2-a320.html)  
+[チノフユ](https://gochiai.github.io/usagi_AR/www.less-ar.com/6cefc7d7-0f20.html)  
+[シャロマヤ](https://gochiai.github.io/usagi_AR/www.less-ar.com/ca5bc889-d2fd.html)  
+[メグ千夜](https://gochiai.github.io/usagi_AR/www.less-ar.com/d149ac74-9456.html)  
 
 ## アラーム
-[チノ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/37cg1sk9-h612.html)  
-[ココア](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/z5xa90tg-jf7t.html)  
-[リゼ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/bhj85dsg-53hv.html)  
-[シャロ](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/9j0csbv3-g714.html)  
-[千夜](https://gochi_ai.gitlab.io/usagi_AR/www.less-ar.com/05qj3fhj-84xs.html)  
+[チノ](https://gochiai.github.io/usagi_AR/www.less-ar.com/37cg1sk9-h612.html)  
+[ココア](https://gochiai.github.io/usagi_AR/www.less-ar.com/z5xa90tg-jf7t.html)  
+[リゼ](https://gochiai.github.io/usagi_AR/www.less-ar.com/bhj85dsg-53hv.html)  
+[シャロ](https://gochiai.github.io/usagi_AR/www.less-ar.com/9j0csbv3-g714.html)  
+[千夜](https://gochiai.github.io/usagi_AR/www.less-ar.com/05qj3fhj-84xs.html)  
 
 
 <h1>How does it work?</h1>

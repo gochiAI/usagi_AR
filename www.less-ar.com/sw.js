@@ -69,6 +69,7 @@ registerRoute(
 
 // ------------------  precaching the assets ---------------------
 precacheAndRoute([
+  './index.html',
   // css,js
   './css/app.css',
   './css/tutorial_common.css',
@@ -79,6 +80,7 @@ precacheAndRoute([
   './js/app.js',
   './js/ar.js',
   './js/driver.min.js',
+  './sw.js',
 // sound
   './sound/Camera-Film01-1.mp3',
 //img
@@ -87,10 +89,10 @@ precacheAndRoute([
   './img/in-camera-icon-a.png',
   './img/animal_lesserpanda.png',
   './img/262x466.png',
-  './img/_sprite_panorama.png',
-  './img/_sprite_menu_icons.png',
-  './img/_sprite_filter_icon.png',
-  './img/_sprite_facepaint_icons.png',
+  './img/sprite_panorama.png',
+  './img/sprite_menu_icons.png',
+  './img/sprite_filter_icon.png',
+  './img/sprite_facepaint_icons.png',
   './img/camera/change-mid.png',
   './img/camera/permission_left.png',
   './img/camera/permission_top.png'

@@ -6,11 +6,12 @@ workbox.setConfig({
   debug: true
 });
 //https://developer.chrome.com/docs/workbox/modules/workbox-sw/#convert-code-using-import-statements-to-use-workbox-sw
-const {Core,setCacheNameDetails} = workbox.core;
+const {core,setCacheNameDetails,clientsClaim} = workbox.core;
 const {registerRoute,setDefaultHandler} = workbox.routing;
-const {CacheFirst, StaleWhileRevalidate,NetworkFirst} = workbox.strategies;
+const {CacheFirst,StaleWhileRevalidate,NetworkFirst} = workbox.strategies;
 const {CacheableResponsePlugin} = workbox.cacheableResponse;
 const {precacheAndRoute} = workbox.precaching;
+
 // https://developer.chrome.com/docs/workbox/modules/workbox-core/
 setCacheNameDetails({
   prefix: 'usagi_AR',
@@ -18,17 +19,17 @@ setCacheNameDetails({
   precache: 'install-assets'
 });
 // Skip over the waiting lifecycle stage.
-Core.skipWaiting();
+skipWaiting();
 // clientsClaim() allows a service worker to take control of the page immediately.
-Core.clientsClaim();
+clientsClaim();
 
 // Use cache-first strategy to cache images
 registerRoute(
   new RegExp('../aws.gochiusa.com/.*\\.(?:png|jpg|webp|svg)'),
-  CacheFirst({
+  new CacheFirst({
     cacheName: 'usagi_AR-images',
     plugins: [
-      CacheableResponsePlugin({
+      new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
     ],
@@ -38,10 +39,10 @@ registerRoute(
 // Cache pages with cache-first strategy
 registerRoute(
   new RegExp('./.*\\.html'),
-  CacheFirst({
+  new CacheFirst({
     cacheName: 'usagi_AR-pages',
     plugins: [
-      CacheableResponsePlugin({
+      new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
     ],
@@ -51,7 +52,7 @@ registerRoute(
 // Cache icons with stale-while-revalidate strategy
 registerRoute(
   new RegExp('./icons/.*\\.(?:png|ico|xml)'),
-  StaleWhileRevalidate({
+  new StaleWhileRevalidate({
     cacheName: 'usagi_AR-icons',
   })
 );
@@ -59,7 +60,7 @@ registerRoute(
 // Cache manifest with stale-while-revalidate strategy
 registerRoute(
   new RegExp('./site/.json'),
-  StaleWhileRevalidate({
+  new StaleWhileRevalidate({
     cacheName: 'usagi_AR-manifest',
   })
 );
@@ -96,10 +97,10 @@ precacheAndRoute([
 ]);
 
 setDefaultHandler(
-   NetworkFirst({
+  new NetworkFirst({
     cacheName: 'default',
     plugins: [
-    CacheableResponsePlugin({
+      new CacheableResponsePlugin({
         statuses: [0, 200]
       })
     ]

@@ -1,7 +1,7 @@
 // https://qiita.com/yhrym/items/f31669d48688d32155b4
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
-
+console.log(`Workbox ${workbox ? 'loaded' : 'failed to load'}`);
 workbox.core.skipWaiting();
 
 workbox.core.clientsClaim();
@@ -9,37 +9,43 @@ workbox.core.clientsClaim();
 workbox.navigationPreload.enable();
 
 // ------------------  runtime caching starts ---------------------
-
+//workbox-strategies
 // AR imgages
+// support by chatgpt
 workbox.routing.registerRoute(
-  new RegExp('../../aws.gochiusa.com/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'AR images',
-    maxEntries: 50,
-  })
-);
+  // 画像ファイルを取得するパスを指定
+  /https:\/\/gochiai\.github\.io\/usagi_AR\/aws\.gochiusa\.com\/.*\.(?:png|jpg|webp|svg)/,  // キャッシュストラテジーを指定
+  new workbox.strategies.CacheFirst({
+    cacheName: 'AR images', // キャッシュ名を指定
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [0, 200]
+      })]
+    }));
+
 
 // icon
 workbox.routing.registerRoute(
-  new RegExp('../.../icons/*'),
+  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/icons\/.*\.(?:png|ico|xml|svg)/,  // キャッシュストラテジーを指定
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'icons',
-    maxEntries: 50,
   })
 );
 //pages
 workbox.routing.registerRoute(
-  new RegExp('../*.html'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'pages',
-    maxEntries: 20,
-  })
+  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/.*\.(?:html)/,  // キャッシュストラテジーを指定
+  new workbox.strategies.CacheFirst({
+    cacheName: 'pages', // キャッシュ名を指定
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [0, 200]
+      })]})
 );
 
 
 // manifest
 workbox.routing.registerRoute(
-  new RegExp('./site.json'),
+  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/site\.json/,  // キャッシュストラテジーを指定
   new workbox.strategies.StaleWhileRevalidate()
 );
 

@@ -1,20 +1,34 @@
 // https://qiita.com/yhrym/items/f31669d48688d32155b4
+//chatgpt
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 console.log(`Workbox ${workbox ? 'loaded' : 'failed to load'}`);
-workbox.core.setCacheNameDetails({ prefix: 'usagi_AR' });
-workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+workbox.setConfig({
+  debug: true
+});
+//https://developer.chrome.com/docs/workbox/modules/workbox-sw/#convert-code-using-import-statements-to-use-workbox-sw
+const {Core,setCacheNameDetails} = workbox.core;
+const {registerRoute,setDefaultHandler} = workbox.routing;
+const {CacheFirst, StaleWhileRevalidate,NetworkFirst} = workbox.strategies;
+const {CacheableResponsePlugin} = workbox.cacheableResponse;
+const {precacheAndRoute} = workbox.precaching;
+// https://developer.chrome.com/docs/workbox/modules/workbox-core/
+setCacheNameDetails({
+  prefix: 'usagi_AR',
+  suffix: 'v1.2',
+  precache: 'install-assets'
+});
 // Skip over the waiting lifecycle stage.
-workbox.core.skipWaiting();
+Core.skipWaiting();
 // clientsClaim() allows a service worker to take control of the page immediately.
-workbox.core.clientsClaim();
+Core.clientsClaim();
 
 // Use cache-first strategy to cache images
-workbox.routing.registerRoute(
-  /https:\/\/gochiai\.github\.io\/usagi_AR\/aws\.gochiusa\.com\/.*\.(?:png|jpg|webp|svg)/,
-  new workbox.strategies.CacheFirst({
+registerRoute(
+  new RegExp('../aws.gochiusa.com/.*\\.(?:png|jpg|webp|svg)'),
+  CacheFirst({
     cacheName: 'usagi_AR-images',
     plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
+      CacheableResponsePlugin({
         statuses: [0, 200],
       }),
     ],
@@ -22,12 +36,12 @@ workbox.routing.registerRoute(
 );
 
 // Cache pages with cache-first strategy
-workbox.routing.registerRoute(
-  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/.*\.(?:html)/,
-  new workbox.strategies.CacheFirst({
+registerRoute(
+  new RegExp('./.*\\.html'),
+  CacheFirst({
     cacheName: 'usagi_AR-pages',
     plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
+      CacheableResponsePlugin({
         statuses: [0, 200],
       }),
     ],
@@ -35,17 +49,17 @@ workbox.routing.registerRoute(
 );
 
 // Cache icons with stale-while-revalidate strategy
-workbox.routing.registerRoute(
-  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/icons\/.*\.(?:png|ico|xml|svg)/,
-  new workbox.strategies.StaleWhileRevalidate({
+registerRoute(
+  new RegExp('./icons/.*\\.(?:png|ico|xml)'),
+  StaleWhileRevalidate({
     cacheName: 'usagi_AR-icons',
   })
 );
 
 // Cache manifest with stale-while-revalidate strategy
-workbox.routing.registerRoute(
-  /https:\/\/gochiai\.github\.io\/usagi_AR\/www\.less-ar\.com\/site\.json/,
-  new workbox.strategies.StaleWhileRevalidate({
+registerRoute(
+  new RegExp('./site/.json'),
+  StaleWhileRevalidate({
     cacheName: 'usagi_AR-manifest',
   })
 );
@@ -53,7 +67,7 @@ workbox.routing.registerRoute(
 
 
 // ------------------  precaching the assets ---------------------
-workbox.precaching.precacheAndRoute([
+precacheAndRoute([
   // css,js
   './css/app.css',
   './css/tutorial_common.css',
@@ -81,11 +95,11 @@ workbox.precaching.precacheAndRoute([
   './img/camera/permission_top.png'
 ]);
 
-workbox.routing.setDefaultHandler(
-  new workbox.strategies.NetworkFirst({
+setDefaultHandler(
+   NetworkFirst({
     cacheName: 'default',
     plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
+    CacheableResponsePlugin({
         statuses: [0, 200]
       })
     ]

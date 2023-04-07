@@ -15,7 +15,7 @@ const {precacheAndRoute} = workbox.precaching;
 // https://developer.chrome.com/docs/workbox/modules/workbox-core/
 setCacheNameDetails({
   prefix: 'usagi_AR',
-  suffix: 'v1.2',
+  suffix: 'v1.24',
   precache: 'install-assets'
 });
 // Skip over the waiting lifecycle stage.

@@ -17,6 +17,7 @@
       /*
       main
       */    
+      video{max-height:100vh;max-height:calc(var(--vh, 1vh)*100);width:100%}.image-viewer-shown{width:100%!important}
       #main{position: relative;background: #FFEAEA;}
       #main>.app-button#set_setting{
         position: absolute;
@@ -26,7 +27,7 @@
       margin-right: 8px;
       width: 48px;
       height:48px;
-      background: #FFEAEA;
+      background: transparent;
       background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAP6SURBVHgBzVqLleIgFH2zFdjB0sFYQkqwg6UEOzAdaAfagXagHThTQdwKtAM2lwF9EgifsDPec8i6Cbwf8H5niOph1w+VOI70YphRuvB2zKgCflEdCDzm8zkppUYH5vA1U1FVASFEdCJTYE4VUEsBLUyKArPZ/eTEJyfg23fg/f3d/vxNFVBLAS0MEy6I7zpCoh/7fmwpvtXSCsOORxDOEZKx6f1Y0ZfbFZQBCM9dHv6/cOY0/ejsnF4wlYr+qHHanUeRxghdFDskFoCJlNL13WAGi6ztO8zbbDbqer2qHGy3W1eRtaF95UZZLBb6X/NukaKAtuput9OMuq7zMdNEV6uVmgrQcIyk+nui31ujrNdrbsDRc7qyVvXheDzqXcH38/msagFGgtCwNnj40DSNVaINCS+s9ff7vXo1QDGjwJUCF3qHCbBwKbDluA+wJD9y+A0L4ljC2qUAXXo4lYH19ccSBhC8bVt+2UYH5pYAsjEeDVfgjJfL5VLlAkSdC36iL08mGP25eXfgu1JiLChPjlttLNHQBUoUvnOtEoAwc4uUwHxmLM1vxgnmeBcm/Jny8vuZWaNppMYQyOYYTHCrHCnjjLKtjPrmESW6VH5wDvR8TIWPaGsnwRuFLONso6ByNGSCYogX3uNuMn6bGFFJJpyHzigisyF2oOnQOw8L+wyFAEcP/y9TiQqrhO9is6goaTokaMHHu8CZp0jwGsMFiy+Xy4Awu0g1cnpBgfQFx4cp4MXbCGGlH0oNF729pazPQTGvWhXZj2FMgZt+3G6DD6z2FTQdwYYA430LLR4rKTX6OzD4yOrahqYjqIDDW/gW+xT4QyayQlBfndt7IT53KnSV1cedwQcoZRSzkXsZofUoFRE8xoJLKCvMhKCELNgJZKsQoXsqgRIuhpqpREppyspKm3sJLnx2ModdqJXMpcKT/WqeDRUWMx6CIkH4hiak0yw6P3Up9PEpqZQ8BQ3KPUnPUVqYd/djWqGg6Vyr6ItZWrP62iO+YdsxuX0kIJYF626cL6nKYYBMFcmeW9SDbkkDjIM12rbkATQKZqA/jcPhkJSZtpgEC/pwOp20JZGjT2mPuLClIiwMHj6wHW1pBHffbAsM2zJhhcXk9giHrx0DYXkPiRVQHSUArsnXWLXb19JXWffELAe2AeZ4r42h3XFlbCuTMguoo2PtEw1TBsmZ5QQkxyidhzaMeHBkyCpfhRG6pXiElWQuv696c+GUiTJBjp0RXtB/hE4LUtIQXFJ67Opk1KrIPvXj8zM68ePjw/5MupAx1FLgggcTLjzxUaT8pQqoqoCv/BxMfCgQ1zYBtRTQwmTuwIVeCD/2xx414frtsVGjJanxD/UWnG3/4S1SAAAAAElFTkSuQmCC");
       background-repeat: no-repeat;
 
@@ -38,7 +39,7 @@
       margin-right: 8px;
       width: 96px;
       height:96px;
-      background: #FFEAEA;
+      background-color: transparent;
       background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARhSURBVHgB7Z3Jj0xRFMY/8zyPIRQWWJAQWyHakAhCjCuxsDFsCH+EEITY2LKzMC4FG8PSEARBdzqGFvPMptv5UtV6SFfd+17fW/feqvNLfqmk81L96py67926w3mAoiiKoiiKoij1Rh/EzURxoTink/zbMHFM6ZX8FD+XXt+Jz8Qn4lPxrvgekRJbAoaKK8UGcZk4D70/xzbxoXi95FXxN5T/9BUXi6fFrygGzKe/xHPiOrEf6pjB4h7xJfwHvZwvxN2lc6kbeJk5KL5BuMB3l+dyoHRuNQ2bfSPiCXx3X4lbUIPMEK8g3sB395JYQI2wQfyEdILfLjsE25Awg8QTSCvoPXm69FmSYpx4B2kFupK3xLFIhCniA6QVYBsfi9MROXPFZqQV2Cw2lz5jlEwVm5BWQPPIrmoBkcFrPptoKkHsrRzsm4hIYA+hlm64tt5GJL2jU0grcC49icBsRloB8+EmBGKG+AVpBs2lnAgqIACXkW7QXHsJVWYD0g6YD9ehSnDMvAnhPqiJUOfFiaUhyEhfZGcvamio1iEzxV3wDPu9rxHuWxZzC6BvkbEVZG0BO1EcbFN6ZrK4A55gskJOoKfQAign+q2X0mRpAUtRvM4plZklLrE9OEsCtkOxxTpWtk2FNxbeYEYhPKZztrlM+eYbivcD4wo82xawCnEEPxVGisttDrRNQAOUrCyzOcg2AVZvpnTB6ktrcw/gzE8L4llJncI9gLSKk8QPlQ6yaQFcnx/7PoIYYWwX2BxkYg6UvBhjpwnwi5MEzIaSF2MC+sPMZLjF9/3ExZYmVxhjZ9MCRkDJizF2mgC/OEnAcCh5cZIAxSM2CfgBJS/fTQfYJMD4JkpZNAGBcZKAFrgl9jlhlxhjZ5OAZ1Dy8tR0gE0CjG+ilEUTEBhj7GzGTSagWINHJ2SywQkZTmZ9rHSQTQtgsaOHULJyH4bgE9tfwtehZMUqZpoAf9ywOUgXZvnB+cIsvtF5KLawJJpVXboso6FnodjiJVZMFpdetwXWROjzew5Py9PZrz0KxcQReLwP6RalyrL4X6YKjFlnxP6Kx6CU47D4B57hNtVGhPuWmQh1Xrw/Zt6mmpfVANrULq5FldFSBR1eQAAKKBaqSCVIvmRJzmC15FgfoRVpBs6F/OwbEZiTSC9wrjyOCOBvA9bVTClwLrwpDkQkcJSUExApBbA3PkKEhVzrqWxltAVc66Fwa/Q7hlhNpRYvR6yLOg2JwOsj62qmFOBK3kRCxbvbGSAeQvq/E1i+PpreTh7WI90HOGxFjVBAWmNHF5FAqfo8cOgihqpb5eSQ8hrUOJxP2I/wM2udZd9+H6o4nh8DHMLgQ9RCTvTzf+9Cgs+Icc0iFB/4w8oivoPOetdnxBWIYMFxbFVQeAlgpamGkvPR+52c7AbzmTbtD/O8hirM29oSexma8SiWy2G9Cg5ztD/OlvtvR6NjDzN3cvKbzT1Z3R9new+Gmj2KoiiKoiiKoijV5B8Ur1HCfmARmQAAAABJRU5ErkJggg==");
       background-repeat: no-repeat;
 
@@ -117,9 +118,11 @@
   <body>
     <div class="app-page" data-page="home">
       <div class="app-content" id="main">
+        <div class="app-button left" id="camera-toggle">jkjkjkjk</div>
         <div class = "app-button right" id="set_setting" data-target="setting" ></div> 
-        <div class = "app-button right" id="set_summon" data-target="summon" ></div> 
-
+        <div class = "app-button left" id="set_summon" data-target="summon" ></div> 
+        <canvas></canvas>
+        <video autoplay muted playsinline id="video" width="auto" height="auto" style="position: absolute; top: 0px; left: 0px; z-index: -2;  margin-top: 0px;"></video>
       </div>
     </div>
 
@@ -171,6 +174,7 @@
     </div>
     <script src="appjs/zepto.js"></script>
     <script src="appjs/app.min.js"></script>
+    <script  type="module" src="app.js"></script>
     <script>
       App.controller('home', function (page) {
         

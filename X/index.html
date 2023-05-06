@@ -132,7 +132,7 @@
         <ul class="app-list">
           <label>Display(表示)</label>
           <li><input type="checkbox" clrToggle />日付時間表示</li>
-          <li>ロゴ表示</li>
+          <li><input type="checkbox" clrToggle />ロゴ表示</li>
           <label>Other(その他)</label>
           <div id="other">usagi_AR 2023-<br/>
             developer: gochi_AI<br/>
@@ -142,8 +142,8 @@
             *cafe lumiere<br/>
             *less-ar.com<br/>
             *gitpod<br/>
-            *flutter<br/>
-            *ARCore<br/>
+            *chatgpt<br/>
+            *kikinteractive/App.js<br/>
             *Figma<br/>
             And . u
           </div>
@@ -176,9 +176,63 @@
     <script src="appjs/app.min.js"></script>
     <script  type="module" src="app.js"></script>
     <script>
-      App.controller('home', function (page) {
-        
-      });
+    var CONSTRAINTS = {audio: false,video: {width: 500,height: 1000,facingMode: null}};
+    App.controller('home', function (page) {
+      $(page).on('appShow',function(){
+        var curSTREAM = null;
+        const video = document.getElementById("video");
+        let useFront = true;     // フロントカメラ:true, バックカメラ:false
+        adjustCameraSize(video, 500, 1000);
+	      syncCamera(video, useFront);
+        document.getElementById("camera-toggle").addEventListener("click", ()=>{
+	      useFront = !useFront;
+        syncCamera(video, useFront);});
+        function syncCamera(video, is_front=true){
+	// 前後カメラの設定
+	CONSTRAINTS.video.facingMode = (is_front)?  "user":{ exact: "environment" };
+  
+	// すでにカメラと接続していたら停止
+	if( curSTREAM !== null ){
+	  curSTREAM.getVideoTracks().forEach( (camera) => {
+		camera.stop();
+	  });
+	}
+  
+	// カメラと接続する
+	navigator.mediaDevices.getUserMedia(CONSTRAINTS)
+	  .then( (stream) => {
+		curSTREAM = stream;   // 前後の切り替え用に保持
+  
+		// <video>とStremaを接続
+		video.srcObject = stream;
+		video.onloadedmetadata = (e) => {
+		  video.play();
+		};
+	  })
+	  .catch( (err) => {
+		console.log(`${err.name}: ${err.message}`);
+		alert("カメラとの接続時にエラーが発生しました");
+	  });
+  }
+  
+  /**
+   * 解像度に合わせて<video>サイズを調整する
+   *
+   * @param {object}  video
+   * @param {integer} longside   長辺のピクセル数
+   * @param {integer} shortside  短辺のピクセル数
+   **/
+  function adjustCameraSize(video, longside, shortside){
+	if( window.innerWidth < window.innerHeight ){
+	  // getUserMediaに食わせる値
+	  CONSTRAINTS.video.width  = shortside;
+	  CONSTRAINTS.video.height = longside;
+	  // videoタグのサイズ
+	  video.style.width  = shortside;
+	  video.style.height = longside;
+	}
+  }
+        })});
 
       App.controller('setting', function (page) {
         this.show_date=false
@@ -193,6 +247,7 @@
       } catch (err) {
         App.load('home');
       }
+
     </script>
   </body>
 </html>

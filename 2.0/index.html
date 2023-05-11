@@ -162,13 +162,17 @@
     <script src="appjs/app.min.js"></script>
     <script  type="module" src="app.js"></script>
     <script>
-    var CONSTRAINTS = {audio: false,video: {width: 500,height: 1000,facingMode: null}};
+    var CONSTRAINTS = {audio: false,video: {width: {min: 640, ideal: 1920, max: 1920},
+    height: {min: 480, ideal: 1080, max: 1080},facingMode: null}};
     App.controller('home', function (page) {
       $(page).on('appShow',function(){
         var curSTREAM = null;
         const video = document.getElementById("video");
+        video.width = window.innerWidth;
+        video.height = window.innerHeight;
         let useFront = true;     // フロントカメラ:true, バックカメラ:false
-        
+        adjustCameraSize(video, video.height,video.width);
+        syncCamera(video, useFront);
         document.getElementById("camera-toggle").addEventListener("click", ()=>{
 	      useFront = !useFront;
         syncCamera(video, useFront);});
@@ -187,7 +191,7 @@
 	navigator.mediaDevices.getUserMedia(CONSTRAINTS)
 	  .then( (stream) => {
 		curSTREAM = stream;   // 前後の切り替え用に保持
-  
+    
 		// <video>とStremaを接続
 		video.srcObject = stream;
 		video.onloadedmetadata = (e) => {
@@ -207,17 +211,23 @@
    * @param {integer} longside   長辺のピクセル数
    * @param {integer} shortside  短辺のピクセル数
    **/
-  function adjustCameraSize(video, longside, shortside){
-	if( window.innerWidth < window.innerHeight ){
-	  // getUserMediaに食わせる値
-	  CONSTRAINTS.video.width  = shortside;
-	  CONSTRAINTS.video.height = longside;
-	  // videoタグのサイズ
-	  video.style.width  = shortside;
-	  video.style.height = longside;
-	}
+   function adjustCameraSize(video, longside, shortside){
+  if(window.innerWidth < window.innerHeight){
+    // getUserMediaに食わせる値
+    CONSTRAINTS.video.width = shortside;
+    CONSTRAINTS.video.height = longside;
+    // videoタグのサイズ
+    video.width = shortside;
+    video.height = longside;
+  } else {
+    // getUserMediaに食わせる値
+    CONSTRAINTS.video.width = longside;
+    CONSTRAINTS.video.height = shortside;
+    // videoタグのサイズ
+    video.width = longside;
+    video.height = shortside;
   }
-        })});
+}})})
 
       App.controller('setting', function (page) {
         this.show_date=false
@@ -226,23 +236,6 @@
       App.controller('summon', function (page) {
         $(page).on('appShow',function(){
           var Items = localStorage.getItem('selectedImage') || [];
-          
-function toggleItem() {
-            var index = Items.indexOf(this);
-            if (index === -1) {
-              if (Items.length >= 3) {
-                return; // クリック可能な要素が3つ以上ある場合は処理を中断する
-              }
-              Items.push(parseInt(this.getAttribute("num"))); // Itemsに要素を追加する
-              this.style.backgroundColor = "green"; // 要素の背景色を変更する
-
-            } else {
-              Items.splice(index, 1); // Itemsから要素を削除する
-              this.style.backgroundColor = ""; // 要素の背景色を元に戻す
-
-  }
-  localStorage.setItem('selectedImage', Items);
-}
         var GroupNames =["ekimemo","lessar","alarm","2023"];
         var CharacterDatas ={
           "ekimemo":{
@@ -254,7 +247,6 @@ function toggleItem() {
         for (i=0;i<GroupNames.length;i++){
           var src="aws.gochiusa.com/img/"+GroupNames[i]+"/still.png"
           var Cd = document.createElement("div");
-          Cd.addEventListener("click", toggleItem);
           Cd.setAttribute("class", "app-button")
           Cd.setAttribute("num", i)
           var img = document.createElement("img");

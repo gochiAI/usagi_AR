@@ -5,6 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <link rel="stylesheet" href="appjs/app.min.css">
     <style>
+      canvas{border:solid 2px black}
+      summary {
+        background-color: aliceblue;
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+details[open] {
+    padding: 0.5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid white;
+    margin-bottom: 0.5em;
+}
+.character-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.character-images div {
+  max-width: 100%;
+  height: auto;
+  margin: 5px;
+}
+
+@media (max-width: 767px) {
+  /* スマートフォン向けのスタイル */
+  .character-images div {
+    width: 25%;
+  }
+  .character-images div img {
+    width: 25%;
+
+  }
+}
+
+@media (min-width: 768px) {
+  /* パソコン向けのスタイル */
+  .character-images div {
+    width: 16.666%;
+
+  }
+  .character-images div img {
+    width: 16.666%;
+
+  }
+}
+.character-images div img.selected {
+  border: 2px solid blue;
+  box-shadow: 0 0 5px blue;
+  background-color: blue;
+}
+
+
       /*
       general
       */
@@ -117,7 +174,7 @@
         <div class="app-button left" id="camera-toggle">jkjkjkjk</div>
         <div class = "app-button right" id="set_setting" data-target="setting" ></div> 
         <div class = "app-button left" id="set_summon" data-target="summon" ></div> 
-        <canvas></canvas>
+        <canvas id="canvas" width="360" height="740"></canvas>
         <video autoplay muted playsinline id="video" width="auto" height="auto" style="position: absolute; top: 0px; left: 0px; z-index: -2;  margin-top: 0px;"></video>
       </div>
     </div>
@@ -153,7 +210,7 @@
     </div>
     <div class="app-page" data-page="summon">
       <div class="app-content" id="summon">
-        <div class="col"  id="chara">
+        <div id="chara">
         </div>
         <div class = "app-button" data-target="home" ></div> 
       </div>
@@ -166,7 +223,64 @@
     height: {min: 480, ideal: 1080, max: 1080},facingMode: null}};
     App.controller('home', function (page) {
       $(page).on('appShow',function(){
-        var curSTREAM = null;
+
+
+// localStorageからclickedListの値を取得
+const clickedList = JSON.parse(localStorage.getItem('clickedList'));
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+console.log(clickedList);
+
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = function() {
+      resolve(img);
+    };
+    img.onerror = function() {
+      reject(new Error('Failed to load image: ' + url));
+    };
+    img.src = url;
+  });
+}
+
+async function loadImages(urls) {
+  const images = [];
+  for (const url of urls) {
+    try {
+      const image = await loadImage(url);
+      images.push(image);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return images;
+}
+
+async function drawImagesOnCanvas(images) {
+  for (const image of images) {
+    ctx.drawImage(image, 0, 0);
+  }
+}
+
+loadImages(clickedList)
+  .then((images) => {
+    drawImagesOnCanvas(images);
+    canvas.addEventListener('click', function(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX  // クリックした x 座標
+      const y = event.clientY - rect.top; 
+    for (const image of  images) {
+    ctx.drawImage(image, x, y);
+  }})
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+
+       var curSTREAM = null;
         const video = document.getElementById("video");
         video.width = window.innerWidth;
         video.height = window.innerHeight;
@@ -227,7 +341,7 @@
     video.width = longside;
     video.height = shortside;
   }
-}})})
+}})});
 
       App.controller('setting', function (page) {
         this.show_date=false
@@ -235,27 +349,104 @@
       });
       App.controller('summon', function (page) {
         $(page).on('appShow',function(){
-          var Items = localStorage.getItem('selectedImage') || [];
-        var GroupNames =["ekimemo","lessar","alarm","2023"];
+        var Items = localStorage.getItem('selectedImage') || [];
         var CharacterDatas ={
           "ekimemo":{
             "chino":[{"chino-dovey":"aws.gochiusa.com/img/ekimemo/chino_full_dovey.png"},{"chino-tired":"aws.gochiusa.com/img/ekimemo/chino_full_tired.png"},{"chino-angry":"aws.gochiusa.com/img/ekimemo/chino_full_angry.png"},{"chino-smile":"aws.gochiusa.com/img/ekimemo/chino_full_smile.png"},{"chino-usual":"aws.gochiusa.com/img/ekimemo/chino_full_usual.png"}],
             "cocoa":[{"cocoa-dovey":"aws.gochiusa.com/img/ekimemo/cocoa_full_dovey.png"},{"cocoa-tired":"aws.gochiusa.com/img/ekimemo/cocoa_full_tired.png"},{"cocoa-angry":"aws.gochiusa.com/img/ekimemo/cocoa_full_angry.png"},{"cocoa-smile":"aws.gochiusa.com/img/ekimemo/cocoa_full_smile.png"},{"cocoa-usual":"aws.gochiusa.com/img/ekimemo/cocoa_full_usual.png"}],
             "rize":[{"rize-dovey":"aws.gochiusa.com/img/ekimemo/rize_full_dovey.png"},{"rize-tired":"aws.gochiusa.com/img/ekimemo/rize_full_tired.png"},{"rize-angry":"aws.gochiusa.com/img/ekimemo/rize_full_angry.png"},{"rize-smile":"aws.gochiusa.com/img/ekimemo/rize_full_smile.png"},{"rize-usual":"aws.gochiusa.com/img/ekimemo/rize_full_usual.png"}],
-        }};
-        var div = document.getElementById("chara");
-        for (i=0;i<GroupNames.length;i++){
-          var src="aws.gochiusa.com/img/"+GroupNames[i]+"/still.png"
-          var Cd = document.createElement("div");
-          Cd.setAttribute("class", "app-button")
-          Cd.setAttribute("num", i)
-          var img = document.createElement("img");
-          img.setAttribute("src", src);
-          Cd.appendChild(img);
-          div.appendChild(Cd);
-        }})
-        });
+        },
+          "lessar":{}
+      };
 
+        function generateHTML() {
+  let html = "";
+
+  for (const group in CharacterDatas) {
+    html += `<details>
+    <summary>${group}</summary>`;
+
+    for (const character in CharacterDatas[group]) {
+      html += `<details>
+        <summary>${character}</summary>
+        <div class="character-images">`;
+
+      CharacterDatas[group][character].forEach(expression => {
+        const expressionName = Object.keys(expression)[0];
+        const imagePath = expression[expressionName];
+
+        html += `<div>
+          <img src="../${imagePath}">
+        </div>`;
+      });
+
+      html += `</details>`;
+    }
+
+    html += `</details>`;
+  }
+
+  return html;
+}
+
+const generatedHTML = generateHTML();
+document.getElementById("chara").innerHTML = generateHTML();
+// クリックした画像のリストを保持する変数
+let clickedList = [];
+
+// localStorageからクリックした画像のリストを取得
+const storedList = localStorage.getItem('clickedList');
+if (storedList) {
+  clickedList = JSON.parse(storedList);
+}
+
+// 画像クリック時の処理
+function handleImageClick(imagePath) {
+  const index = clickedList.indexOf(imagePath);
+
+  if (index === -1) {
+    // リストに追加
+    clickedList.push(imagePath);
+    if (clickedList.length > 5) {
+      // リストの長さが5を超える場合、先頭の要素を削除
+      clickedList.shift();
+    }
+  } else {
+    // リストから削除
+    clickedList.splice(index, 1);
+  }
+
+  // リストをlocalStorageに保存
+  localStorage.setItem('clickedList', JSON.stringify(clickedList));
+}
+
+// 画像要素にクリックイベントを追加
+const imageElements = document.querySelectorAll('.character-images img');
+imageElements.forEach(image => {
+  image.addEventListener('click', () => {
+    handleImageClick(image.getAttribute('src'));
+    updateImageDisplay();
+  });
+});
+
+// 画像の表示を更新する関数
+function updateImageDisplay() {
+  // リスト内の画像を強調するためのスタイルを追加
+  imageElements.forEach(image => {
+    const imagePath = image.getAttribute('src');
+    if (clickedList.includes(imagePath)) {
+      image.classList.add('selected');
+    } else {
+      image.classList.remove('selected');
+    }
+  });
+}
+
+// 初期表示時に画像の表示を更新
+updateImageDisplay();
+
+
+      })});
 
       try {
         App.restore();

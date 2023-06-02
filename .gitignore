@@ -2,3 +2,7 @@
 *.firebaserc
 firebase.json
 .firebase
+node*
+package.json
+
+package-lock.json

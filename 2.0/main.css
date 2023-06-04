@@ -1,6 +1,7 @@
 canvas {
   border: solid 2px black;
 }
+
 video {
   position: absolute;
   top: 0px;
@@ -13,20 +14,28 @@ summary {
   font-weight: bold;
   margin: -0.5em -0.5em 0;
   padding: 0.5em;
+  height: 60px;
+  font-size: 50px;
+  display: flex; /* 追加 */
+  align-items: center; /* 追加 */
 }
 
-details[open] {
+.details[open] {
   padding: 0.5em;
+  display: flex; /* 追加 */
+  flex-direction: column; /* 追加 */
 }
 
-details[open] summary {
+.details[open] summary {
   border-bottom: 1px solid white;
   margin-bottom: 0.5em;
 }
+
 .character-images {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 40px;
 }
 
 .character-images div {
@@ -34,25 +43,9 @@ details[open] summary {
   height: auto;
   margin: 5px;
 }
-
-@media (max-width: 767px) {
-  /* スマートフォン向けのスタイル */
-  .character-images div {
-    width: 25%;
-  }
-  .character-images div img {
-    width: 25%;
-  }
-}
-
-@media (min-width: 768px) {
-  /* パソコン向けのスタイル */
-  .character-images div {
-    width: 16.666%;
-  }
-  .character-images div img {
-    width: 16.666%;
-  }
+.character-images div img{
+ 
+  margin: 10px;
 }
 .character-images div img.selected {
   border: 2px solid blue;
@@ -86,24 +79,27 @@ video {
 }
 #main > .app-button#set_setting {
   position: absolute;
-
   right: 0%;
   margin-top: 10px;
   margin-right: 8px;
-  width: 48px;
-  height: 48px;
+  width: var(--button-sizeA);
+  height: var(--button-sizeA);
   background: transparent;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAP6SURBVHgBzVqLleIgFH2zFdjB0sFYQkqwg6UEOzAdaAfagXagHThTQdwKtAM2lwF9EgifsDPec8i6Cbwf8H5niOph1w+VOI70YphRuvB2zKgCflEdCDzm8zkppUYH5vA1U1FVASFEdCJTYE4VUEsBLUyKArPZ/eTEJyfg23fg/f3d/vxNFVBLAS0MEy6I7zpCoh/7fmwpvtXSCsOORxDOEZKx6f1Y0ZfbFZQBCM9dHv6/cOY0/ejsnF4wlYr+qHHanUeRxghdFDskFoCJlNL13WAGi6ztO8zbbDbqer2qHGy3W1eRtaF95UZZLBb6X/NukaKAtuput9OMuq7zMdNEV6uVmgrQcIyk+nui31ujrNdrbsDRc7qyVvXheDzqXcH38/msagFGgtCwNnj40DSNVaINCS+s9ff7vXo1QDGjwJUCF3qHCbBwKbDluA+wJD9y+A0L4ljC2qUAXXo4lYH19ccSBhC8bVt+2UYH5pYAsjEeDVfgjJfL5VLlAkSdC36iL08mGP25eXfgu1JiLChPjlttLNHQBUoUvnOtEoAwc4uUwHxmLM1vxgnmeBcm/Jny8vuZWaNppMYQyOYYTHCrHCnjjLKtjPrmESW6VH5wDvR8TIWPaGsnwRuFLONso6ByNGSCYogX3uNuMn6bGFFJJpyHzigisyF2oOnQOw8L+wyFAEcP/y9TiQqrhO9is6goaTokaMHHu8CZp0jwGsMFiy+Xy4Awu0g1cnpBgfQFx4cp4MXbCGGlH0oNF729pazPQTGvWhXZj2FMgZt+3G6DD6z2FTQdwYYA430LLR4rKTX6OzD4yOrahqYjqIDDW/gW+xT4QyayQlBfndt7IT53KnSV1cedwQcoZRSzkXsZofUoFRE8xoJLKCvMhKCELNgJZKsQoXsqgRIuhpqpREppyspKm3sJLnx2ModdqJXMpcKT/WqeDRUWMx6CIkH4hiak0yw6P3Up9PEpqZQ8BQ3KPUnPUVqYd/djWqGg6Vyr6ItZWrP62iO+YdsxuX0kIJYF626cL6nKYYBMFcmeW9SDbkkDjIM12rbkATQKZqA/jcPhkJSZtpgEC/pwOp20JZGjT2mPuLClIiwMHj6wHW1pBHffbAsM2zJhhcXk9giHrx0DYXkPiRVQHSUArsnXWLXb19JXWffELAe2AeZ4r42h3XFlbCuTMguoo2PtEw1TBsmZ5QQkxyidhzaMeHBkyCpfhRG6pXiElWQuv696c+GUiTJBjp0RXtB/hE4LUtIQXFJ67Opk1KrIPvXj8zM68ePjw/5MupAx1FLgggcTLjzxUaT8pQqoqoCv/BxMfCgQ1zYBtRTQwmTuwIVeCD/2xx414frtsVGjJanxD/UWnG3/4S1SAAAAAElFTkSuQmCC");
+  background-size: contain; /* 背景画像のサイズを調整するプロパティ */
+  background-position: center; /* 背景画像の位置を中央に設定 */
   background-repeat: no-repeat;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAP6SURBVHgBzVqLleIgFH2zFdjB0sFYQkqwg6UEOzAdaAfagXagHThTQdwKtAM2lwF9EgifsDPec8i6Cbwf8H5niOph1w+VOI70YphRuvB2zKgCflEdCDzm8zkppUYH5vA1U1FVASFEdCJTYE4VUEsBLUyKArPZ/eTEJyfg23fg/f3d/vxNFVBLAS0MEy6I7zpCoh/7fmwpvtXSCsOORxDOEZKx6f1Y0ZfbFZQBCM9dHv6/cOY0/ejsnF4wlYr+qHHanUeRxghdFDskFoCJlNL13WAGi6ztO8zbbDbqer2qHGy3W1eRtaF95UZZLBb6X/NukaKAtuput9OMuq7zMdNEV6uVmgrQcIyk+nui31ujrNdrbsDRc7qyVvXheDzqXcH38/msagFGgtCwNnj40DSNVaINCS+s9ff7vXo1QDGjwJUCF3qHCbBwKbDluA+wJD9y+A0L4ljC2qUAXXo4lYH19ccSBhC8bVt+2UYH5pYAsjEeDVfgjJfL5VLlAkSdC36iL08mGP25eXfgu1JiLChPjlttLNHQBUoUvnOtEoAwc4uUwHxmLM1vxgnmeBcm/Jny8vuZWaNppMYQyOYYTHCrHCnjjLKtjPrmESW6VH5wDvR8TIWPaGsnwRuFLONso6ByNGSCYogX3uNuMn6bGFFJJpyHzigisyF2oOnQOw8L+wyFAEcP/y9TiQqrhO9is6goaTokaMHHu8CZp0jwGsMFiy+Xy4Awu0g1cnpBgfQFx4cp4MXbCGGlH0oNF729pazPQTGvWhXZj2FMgZt+3G6DD6z2FTQdwYYA430LLR4rKTX6OzD4yOrahqYjqIDDW/gW+xT4QyayQlBfndt7IT53KnSV1cedwQcoZRSzkXsZofUoFRE8xoJLKCvMhKCELNgJZKsQoXsqgRIuhpqpREppyspKm3sJLnx2ModdqJXMpcKT/WqeDRUWMx6CIkH4hiak0yw6P3Up9PEpqZQ8BQ3KPUnPUVqYd/djWqGg6Vyr6ItZWrP62iO+YdsxuX0kIJYF626cL6nKYYBMFcmeW9SDbkkDjIM12rbkATQKZqA/jcPhkJSZtpgEC/pwOp20JZGjT2mPuLClIiwMHj6wHW1pBHffbAsM2zJhhcXk9giHrx0DYXkPiRVQHSUArsnXWLXb19JXWffELAe2AeZ4r42h3XFlbCuTMguoo2PtEw1TBsmZ5QQkxyidhzaMeHBkyCpfhRG6pXiElWQuv696c+GUiTJBjp0RXtB/hE4LUtIQXFJ67Opk1KrIPvXj8zM68ePjw/5MupAx1FLgggcTLjzxUaT8pQqoqoCv/BxMfCgQ1zYBtRTQwmTuwIVeCD/2xx414frtsVGjJanxD/UWnG3/4S1SAAAAAElFTkSuQmCC");
 }
 #main > .app-button#set_summon {
   position: absolute;
   bottom: 1%;
   left: 0%;
   margin-right: 8px;
-  width: 96px;
-  height: 96px;
-  background-color: transparent;
+  width: var(--button-sizeB);
+  height: var(--button-sizeB);
+  background: transparent;
+  background-size: contain; /* 背景画像のサイズを調整するプロパティ */
+  background-position: center; /* 背景画像の位置を中央に設定 */
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARhSURBVHgB7Z3Jj0xRFMY/8zyPIRQWWJAQWyHakAhCjCuxsDFsCH+EEITY2LKzMC4FG8PSEARBdzqGFvPMptv5UtV6SFfd+17fW/feqvNLfqmk81L96py67926w3mAoiiKoiiKoij1Rh/EzURxoTink/zbMHFM6ZX8FD+XXt+Jz8Qn4lPxrvgekRJbAoaKK8UGcZk4D70/xzbxoXi95FXxN5T/9BUXi6fFrygGzKe/xHPiOrEf6pjB4h7xJfwHvZwvxN2lc6kbeJk5KL5BuMB3l+dyoHRuNQ2bfSPiCXx3X4lbUIPMEK8g3sB395JYQI2wQfyEdILfLjsE25Awg8QTSCvoPXm69FmSYpx4B2kFupK3xLFIhCniA6QVYBsfi9MROXPFZqQV2Cw2lz5jlEwVm5BWQPPIrmoBkcFrPptoKkHsrRzsm4hIYA+hlm64tt5GJL2jU0grcC49icBsRloB8+EmBGKG+AVpBs2lnAgqIACXkW7QXHsJVWYD0g6YD9ehSnDMvAnhPqiJUOfFiaUhyEhfZGcvamio1iEzxV3wDPu9rxHuWxZzC6BvkbEVZG0BO1EcbFN6ZrK4A55gskJOoKfQAign+q2X0mRpAUtRvM4plZklLrE9OEsCtkOxxTpWtk2FNxbeYEYhPKZztrlM+eYbivcD4wo82xawCnEEPxVGisttDrRNQAOUrCyzOcg2AVZvpnTB6ktrcw/gzE8L4llJncI9gLSKk8QPlQ6yaQFcnx/7PoIYYWwX2BxkYg6UvBhjpwnwi5MEzIaSF2MC+sPMZLjF9/3ExZYmVxhjZ9MCRkDJizF2mgC/OEnAcCh5cZIAxSM2CfgBJS/fTQfYJMD4JkpZNAGBcZKAFrgl9jlhlxhjZ5OAZ1Dy8tR0gE0CjG+ilEUTEBhj7GzGTSagWINHJ2SywQkZTmZ9rHSQTQtgsaOHULJyH4bgE9tfwtehZMUqZpoAf9ywOUgXZvnB+cIsvtF5KLawJJpVXboso6FnodjiJVZMFpdetwXWROjzew5Py9PZrz0KxcQReLwP6RalyrL4X6YKjFlnxP6Kx6CU47D4B57hNtVGhPuWmQh1Xrw/Zt6mmpfVANrULq5FldFSBR1eQAAKKBaqSCVIvmRJzmC15FgfoRVpBs6F/OwbEZiTSC9wrjyOCOBvA9bVTClwLrwpDkQkcJSUExApBbA3PkKEhVzrqWxltAVc66Fwa/Q7hlhNpRYvR6yLOg2JwOsj62qmFOBK3kRCxbvbGSAeQvq/E1i+PpreTh7WI90HOGxFjVBAWmNHF5FAqfo8cOgihqpb5eSQ8hrUOJxP2I/wM2udZd9+H6o4nh8DHMLgQ9RCTvTzf+9Cgs+Icc0iFB/4w8oivoPOetdnxBWIYMFxbFVQeAlgpamGkvPR+52c7AbzmTbtD/O8hirM29oSexma8SiWy2G9Cg5ztD/OlvtvR6NjDzN3cvKbzT1Z3R9new+Gmj2KoiiKoiiKoijV5B8Ur1HCfmARmQAAAABJRU5ErkJggg==");
   background-repeat: no-repeat;
 }
@@ -117,9 +113,12 @@ setting
 #setting > .app-button {
   position: absolute;
   right: 0%;
-  width: 68px;
-  height: 68px;
   background-color: black;
+  width: var(--button-sizeA);
+  height: var(--button-sizeA);
+  background: transparent;
+  background-size: contain; /* 背景画像のサイズを調整するプロパティ */
+  background-position: center; /* 背景画像の位置を中央に設定 */
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFOSURBVHgB7dprqoNADIbhcFZ0ltYddHbcJaSVGhqKtWpncvN7wX8ykQfEC0OEEEIIIYQQQgihhZj5/3FcyanH7Mt0DRShGePGz8xRppnz7Js7yhsGW6MoDHZH+YBhhrKA4Ysy37drDUNZwZAaeTQNtkYJi6Eu0AwlPIZkgZIGQxqJkg5DGoGSFkPqiZIeQ+qBUgZD+gWlHIZ0BKUshrQHpTyGtAWFz4IhbUA5D4Z0EKVR5XaiNDpDG1EaOfRHPnGnc/LH358mOrcf1ybtxKiNchCjJsoGjMYOvyNd4h1voOVR+MDreFkU/uHbpBwKd/hQK4PSA0OtlRulJ4ZaMyfKCAy1di6UkRhqRg4UCww1KzaKJYaaGRPFA0PN/oZyIet4fcNMo8GtoITbRdTIqAWUcPvMGhmnUPwxpBnF/r59zW9hMBBCCCGEEEIIoXDdAS14JGKD2EF1AAAAAElFTkSuQmCC");
 }
 #setting > .app-list {
@@ -128,26 +127,26 @@ setting
 #setting > .app-list > label {
   background-color: black;
   color: white;
-  font-size: 28px;
-  margin: 15px 2px;
+  font-size: var(--font-size-label);
+  margin: var(--margin-label);
 }
 #setting > .app-list > li {
   background-color: black;
   color: white;
-  font-size: 22px;
-  margin: 5px 30px;
+  font-size: var(--font-size-li);
+  margin: var(--margin-li);
 }
 #setting > .app-list > div#other {
   background-color: black;
   color: white;
-  font-size: 20px;
-  margin: 0px 30px;
+  font-size: var(--font-size-other);
+  margin: var(--margin-other);
 }
 #setting > .app-list > div.col {
   background-color: black;
   color: white;
-  font-size: 20px;
-  margin: 0px 30px;
+  font-size: var(--font-size-other);
+  margin: var(--margin-other);
 }
 #setting > .app-list > div.col > li#twitter {
   margin: 0px 10px 0 30;
@@ -171,17 +170,49 @@ setting
 }
 #summon > .col > div {
   background-color: aliceblue;
-  width: 50%;
-  height: 200px;
+  width: 100%;
+  height: 100%;
 }
 #summon > .app-button {
   position: absolute;
-  bottom: 1%;
+  bottom: 0%;
   left: 0%;
-  margin: 20px;
-  width: 48px;
-  height: 48px;
-  background: black;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKzSURBVHgB7ZjfcdpAEMYXCK+MGf48Kx1AB6SCJBUYOjAVIFWQpAIrFSRUEFJBUoLeeAAGNQD4W/mkOZ8EI+1JBo/1m9GcdDrBftLu3t4R1dS8bxpUAvv9foHGpWK43W7XI0usBex2u4dms/mNBByPx3mv1/tOFlgJwJu/R+OTBa1Wa9rpdH6SELEAGD9C8wfHHdkR4vgEd/pPAjIFwDgHzSMONtLWwDL4jWMOkYF5IyVAGf+PbsNwHf5SY1NE0xx1Op04qG7NeIZtejQ7UwIajcZnul1GZkeT3hYpz3hrAlKULSDE5PQD7VccHxFwDT5wPuY+3BPn+3NkZaETyeBUN4PB4aVBnOUgxMXsfU8C1AtJ+EDlwDk6V0mg0uAUQrhdkCVlCPCyjN9sNhNkNIfPkZqDwWCw0u/jGRci+GuJ6qgYWxfyYchM79hut1PUN2yUmTGCw+Hg9ft93/i/X2i+UE5MF7INYs8wZgHjebLJmggdvqdKbx1+ARfj5hI2Anx9Wuc3T/nWBK4aG8FBb5OdbAQs9Qu83dwBqVwsATGyIiE2AoL4hAMWjUP5uYMrTeILCBKV0oxYgF6/x9mmCAhoR/utgIS831JCrRsi4AIBFUR/Rq3uRNh8geRP4QIrKpYKA/VMhO5ORRELQOqbGF1zys+L+QMxlHsiMxEL4GIMnz6ZsPBGfTIMO4OnxkawK0oLu8gOkpNa4nF9Q88za5Axnl1spsYkcGVKFliX0+c2p1Sed9TlC5/XxhTe0TNrobLWA4W3CaU7elUJYHx69u/g0iAVN+x6osCtUkCMj7S4hGsFw+Ewmq3X67XTbrdHyDYTFbDibZvXEFApZa8Hrk6WAPHi4hpkCRCXtlWDdcPS7MsSYLXEq5AQSeDB7EwJUGlwnKX2SoSw5S9l7EzX1NTU1NQ8ARj1AchyBBCmAAAAAElFTkSuQmCC");
+  margin: 0px 0px 0px 20px;
+  width: var(--button-sizeB);
+  height: var(--button-sizeB);
+  background: transparent;
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
+  background-color: black; /* 背景色を設定 */
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKzSURBVHgB7ZjfcdpAEMYXCK+MGf48Kx1AB6SCJBUYOjAVIFWQpAIrFSRUEFJBUoLeeAAGNQD4W/mkOZ8EI+1JBo/1m9GcdDrBftLu3t4R1dS8bxpUAvv9foHGpWK43W7XI0usBex2u4dms/mNBByPx3mv1/tOFlgJwJu/R+OTBa1Wa9rpdH6SELEAGD9C8wfHHdkR4vgEd/pPAjIFwDgHzSMONtLWwDL4jWMOkYF5IyVAGf+PbsNwHf5SY1NE0xx1Op04qG7NeIZtejQ7UwIajcZnul1GZkeT3hYpz3hrAlKULSDE5PQD7VccHxFwDT5wPuY+3BPn+3NkZaETyeBUN4PB4aVBnOUgxMXsfU8C1AtJ+EDlwDk6V0mg0uAUQrhdkCVlCPCyjN9sNhNkNIfPkZqDwWCw0u/jGRci+GuJ6qgYWxfyYchM79hut1PUN2yUmTGCw+Hg9ft93/i/X2i+UE5MF7INYs8wZgHjebLJmggdvqdKbx1+ARfj5hI2Anx9Wuc3T/nWBK4aG8FBb5OdbAQs9Qu83dwBqVwsATGyIiE2AoL4hAMWjUP5uYMrTeILCBKV0oxYgF6/x9mmCAhoR/utgIS831JCrRsi4AIBFUR/Rq3uRNh8geRP4QIrKpYKA/VMhO5ORRELQOqbGF1zys+L+QMxlHsiMxEL4GIMnz6ZsPBGfTIMO4OnxkawK0oLu8gOkpNa4nF9Q88za5Axnl1spsYkcGVKFliX0+c2p1Sed9TlC5/XxhTe0TNrobLWA4W3CaU7elUJYHx69u/g0iAVN+x6osCtUkCMj7S4hGsFw+Ewmq3X67XTbrdHyDYTFbDibZvXEFApZa8Hrk6WAPHi4hpkCRCXtlWDdcPS7MsSYLXEq5AQSeDB7EwJUGlwnKX2SoSw5S9l7EzX1NTU1NQ8ARj1AchyBBCmAAAAAElFTkSuQmCC");
 }
+@media screen and (max-width: 999px) {
+  /* 499px以下のデバイスに対するスタイル */
+  :root {
+    --button-sizeA: 120px;
+    --button-sizeB: 180px;
+    --font-size-label: 50px;
+    --font-size-li: 45px;
+    --font-size-other: 40px;
+    --margin-label:30px 0px 30px 20px;
+    --margin-li:40px 70px;
+    --margin-other:30px 80px;
+    
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  /* 500px以上のデバイスに対するスタイル */
+  :root {
+    --button-sizeA: 60px;
+    --button-sizeB: 80px;
+    --font-size-label: 40px;
+    --font-size-li: 29px;
+    --font-size-other: 25px;
+    --margin-label:15px 2px;
+    --magin-li:5px 30px;
+    --margin-other:0px 30px;
+  }
+}
+

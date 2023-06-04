@@ -13,7 +13,7 @@
   <body>
     <div class="app-page" data-page="home">
       <div class="app-content" id="main">
-        <div class="app-button left" id="camera-toggle">jkjkjkjk</div>
+        <div class="app-button left" id="camera-toggle"></div>
         <div
           class="app-button right"
           id="set_setting"
@@ -149,79 +149,66 @@
             canvas.addEventListener("mousedown", startDrag);
             canvas.addEventListener("mousemove", drag);
             canvas.addEventListener("mouseup", endDrag);
+
             canvas.addEventListener("touchstart", startDrag);
-            canvas.addEventListener("touchmove", drag);
-            canvas.addEventListener("touchend", endDrag);
+canvas.addEventListener("touchmove", drag);
+canvas.addEventListener("touchend", endDrag);
+  // ドラッグ開始時の処理
+  function startDrag(event) {
+    isMouseDown = true;
+    event.preventDefault();
 
-            // ドラッグ開始時の処理
-            function startDrag(event) {
-              isMouseDown = true;
-              event.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    let offsetX, offsetY;
+    if (event.touches) {
+      offsetX = event.touches[0].clientX - rect.left;
+      offsetY = event.touches[0].clientY - rect.top;
+    } else {
+      offsetX = event.clientX - rect.left;
+      offsetY = event.clientY - rect.top;
+    }
 
-              // クリック位置に画像があるかを判定
-              const rect = canvas.getBoundingClientRect();
-              const offsetX = event.clientX - rect.left;
-              const offsetY = event.clientY - rect.top;
+    // クリック位置に画像があるかを判定
+    activeIndex = positions.findIndex((position, index) => {
+      return (
+        offsetX >= position.x &&
+        offsetX <= position.x + images[index].width &&
+        offsetY >= position.y &&
+        offsetY <= position.y + images[index].height
+      );
+    });
+  }
+  function drag(event) {
+    if (isMouseDown && activeIndex !== -1) {
+      event.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      let offsetX, offsetY;
+      if (event.touches) {
+        offsetX = event.touches[0].clientX - rect.left;
+        offsetY = event.touches[0].clientY - rect.top;
+      } else {
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+      }
 
-              activeIndex = positions.findIndex((position, index) => {
-                return (
-                  offsetX >= position.x &&
-                  offsetX <= position.x + images[index].width &&
-                  offsetY >= position.y &&
-                  offsetY <= position.y + images[index].height
-                );
-              });
-            }
-            if (activeIndex !== -1) {
-              // クリックされた画像を最前面に移動する
-              const clickedImage = images[activeIndex];
-              images.splice(activeIndex, 1);
-              images.push(clickedImage);
+      const position = positions[activeIndex];
+      position.x = offsetX - images[activeIndex].width / 2;
+      position.y = offsetY - images[activeIndex].height / 2;
 
-              const clickedPosition = positions[activeIndex];
-              positions.splice(activeIndex, 1);
-              positions.push(clickedPosition);
+      drawImages();
+      console.log("drag");
+    }
+  }
 
-              activeIndex = images.length - 1;
-            }
-            function drag(event) {
-              if (isMouseDown && activeIndex !== -1) {
-                event.preventDefault();
-                const rect = canvas.getBoundingClientRect();
-                const offsetX = event.clientX - rect.left;
-                const offsetY = event.clientY - rect.top;
-                const touches = event.touches;
+  // ドラッグ終了時の処理
+  function endDrag(event) {
+    event.preventDefault();
+    isMouseDown = false;
+    activeIndex = -1;
 
-                const position = positions[activeIndex];
-                if (touches) {
-                  position.x =
-                    touches[0].clientX -
-                    rect.left -
-                    images[activeIndex].width / 2;
-                  position.y =
-                    touches[0].clientY -
-                    rect.top -
-                    images[activeIndex].height / 2;
-                } else {
-                  position.x = offsetX - images[activeIndex].width / 2;
-                  position.y = offsetY - images[activeIndex].height / 2;
-                }
-
-                drawImages();
-                console.log("drag");
-              }
-            }
-
-            // ドラッグ終了時の処理
-            function endDrag(event) {
-              event.preventDefault();
-              isMouseDown = false;
-              activeIndex = -1;
-
-              drawImages();
-              console.log("End");
-            }
-
+    drawImages();
+    console.log("End");
+  }
             // すべての画像を描画する関数
             function drawImages() {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -488,4 +475,5 @@
       }
     </script>
   </body>
+  
 </html>

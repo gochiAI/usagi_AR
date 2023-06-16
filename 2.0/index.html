@@ -4,7 +4,7 @@
     <title>My App</title>
     <mete
       name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width,height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <link rel="stylesheet" href="appjs/app.min.css" />
     <link rel="stylesheet" href="./main.css" />
@@ -96,15 +96,26 @@
           // localStorageからclickedListの値を取得
           const clickedList = JSON.parse(localStorage.getItem("clickedList"));
 
-          function restart() {
-            var windowInnerWidth = window.innerWidth;
-            var windowInnerHeight = window.innerHeight;
-            canvas.setAttribute("width", windowInnerWidth);
-            canvas.setAttribute("height", windowInnerHeight);
-            adjustCameraSize(video, windowInnerWidth, windowInnerHeight);
-          }
-          window.addEventListener("resize", restart);
-          restart();
+          function resizeVideo() {
+  var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+  var videoAspectRatio = video.videoWidth / video.videoHeight;
+  var screenAspectRatio = screenWidth / screenHeight;
+  canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  if (screenAspectRatio > videoAspectRatio) {
+    video.style.width = '100%';
+    video.style.height = 'auto';
+
+  } else {
+    video.style.width = 'auto';
+    video.style.height = '100%';
+
+  }
+}
+          window.addEventListener("resize", resizeVideo);
+          resizeVideo();
 
           function loadImage(url) {
             return new Promise((resolve, reject) => {
@@ -272,30 +283,6 @@ canvas.addEventListener("touchend", endDrag);
               });
           }
 
-          /**
-           * 解像度に合わせて<video>サイズを調整する
-           *
-           * @param {object}  video
-           * @param {integer} longside   長辺のピクセル数
-           * @param {integer} shortside  短辺のピクセル数
-           **/
-          function adjustCameraSize(video, longside, shortside) {
-            if (window.innerWidth < window.innerHeight) {
-              // getUserMediaに食わせる値
-              CONSTRAINTS.video.width = shortside;
-              CONSTRAINTS.video.height = longside;
-              // videoタグのサイズ
-              video.width = shortside;
-              video.height = longside;
-            } else {
-              // getUserMediaに食わせる値
-              CONSTRAINTS.video.width = longside;
-              CONSTRAINTS.video.height = shortside;
-              // videoタグのサイズ
-              video.width = longside;
-              video.height = shortside;
-            }
-          }
         });
       });
 
@@ -395,7 +382,7 @@ canvas.addEventListener("touchend", endDrag);
                   const imagePath = expression[expressionName];
 
                   html += `<div>
-          <img src="../${imagePath}">
+          <img src="../${imagePath.replace('full','face')}">
         </div>`;
                 });
 
@@ -445,7 +432,7 @@ canvas.addEventListener("touchend", endDrag);
           );
           imageElements.forEach((image) => {
             image.addEventListener("click", () => {
-              handleImageClick(image.getAttribute("src"));
+              handleImageClick(image.getAttribute("src").replace('face','full'));
               updateImageDisplay();
             });
           });
@@ -454,7 +441,7 @@ canvas.addEventListener("touchend", endDrag);
           function updateImageDisplay() {
             // リスト内の画像を強調するためのスタイルを追加
             imageElements.forEach((image) => {
-              const imagePath = image.getAttribute("src");
+              const imagePath = image.getAttribute("src").replace('face','full');
               if (clickedList.includes(imagePath)) {
                 image.classList.add("selected");
               } else {

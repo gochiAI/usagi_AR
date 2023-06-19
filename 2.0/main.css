@@ -1,4 +1,42 @@
 
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: medium;
+}
+#modal > .app-button{
+position: absolute;
+right: 0%;
+background-color: black;
+width: var(--button-sizeA);
+height: var(--button-sizeA);
+background: transparent;
+background-size: contain; /* 背景画像のサイズを調整するプロパティ */
+background-position: center; /* 背景画像の位置を中央に設定 */
+background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjgiIGhlaWdodD0iNjgiIHZpZXdCb3g9IjAgMCA2OCA2OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzRfMTkpIj4KPHBhdGggZD0iTTUzLjgzMzMgMTguMTYxN0w0OS44MzgzIDE0LjE2NjdMMzQgMzAuMDA1TDE4LjE2MTcgMTQuMTY2N0wxNC4xNjY3IDE4LjE2MTdMMzAuMDA1IDM0TDE0LjE2NjcgNDkuODM4M0wxOC4xNjE3IDUzLjgzMzNMMzQgMzcuOTk1TDQ5LjgzODMgNTMuODMzM0w1My44MzMzIDQ5LjgzODNMMzcuOTk1IDM0TDUzLjgzMzMgMTguMTYxN1oiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNF8xOSI+CjxyZWN0IHdpZHRoPSI2OCIgaGVpZ2h0PSI2OCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K");
+}
+#modal-content {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#screenshot {
+  max-width: 50%;
+  max-height: 50%;
+  margin-top: 25%;
+}
 
 video {
   position: absolute;
@@ -67,6 +105,7 @@ main
   width: 100% !important;
 }
 #main {
+  overflow: hidden hidden;
   position: relative;
   background: #ffeaea;
 }

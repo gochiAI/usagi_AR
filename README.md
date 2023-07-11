@@ -1,4 +1,5 @@
-<h3><a href='https://usagi-ar.web.app/www.less-ar.com/'>[copy] less-ar.com</a></h3>
+<h3><a href='https://gochiai.github.io/usagi_AR/'>[dev] usagi_AR</a></h3>
+<h3><a href='https://yumemi.web.app/usagi_AR/'>[stable] usagi_AR </a></h3>
 
 This project is an unauthorized reuse of an official service.  
 There is a possibility that this project may be closed.  
@@ -8,6 +9,7 @@ There is a possibility that this project may be closed.
 - Remove access to the stamp rally  
 - AR using different images  
 - I18N
+- ver2.0
 
 <h1>How does it work?</h1>
 This project is operated by copying and partially editing the service that was adopted by the official without permission.  
@@ -21,5 +23,3 @@ It was also only available for a limited time and it was unknown at the time whe
 We want to touch as many people as possible, so we are making it multilingual.  
 Please let me know if there are any languages you need.  
 It will be machine translated, but it's better than nothing (maybe).  
-
-

@@ -1,13 +1,16 @@
+
 #modal {
-  position: fixed;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #ffffff;
   font-size: medium;
 }
@@ -21,13 +24,6 @@
   background-size: contain; /* 背景画像のサイズを調整するプロパティ */
   background-position: center; /* 背景画像の位置を中央に設定 */
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjgiIGhlaWdodD0iNjgiIHZpZXdCb3g9IjAgMCA2OCA2OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzRfMTkpIj4KPHBhdGggZD0iTTUzLjgzMzMgMTguMTYxN0w0OS44MzgzIDE0LjE2NjdMMzQgMzAuMDA1TDE4LjE2MTcgMTQuMTY2N0wxNC4xNjY3IDE4LjE2MTdMMzAuMDA1IDM0TDE0LjE2NjcgNDkuODM4M0wxOC4xNjE3IDUzLjgzMzNMMzQgMzcuOTk1TDQ5LjgzODMgNTMuODMzM0w1My44MzMzIDQ5LjgzODNMMzcuOTk1IDM0TDUzLjgzMzMgMTguMTYxN1oiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNF8xOSI+CjxyZWN0IHdpZHRoPSI2OCIgaGVpZ2h0PSI2OCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K");
-}
-#modal-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  max-height: 100%;
 }
 
 #screenshot {
@@ -237,21 +233,21 @@ setting
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjgiIGhlaWdodD0iMzkiIHZpZXdCb3g9IjAgMCA2OCAzOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQ5LjE5MjggNS4zOTI4OUw0OS4xOTIyIDUuMzkzNTJMMzIuOTc5MyAyMS42MzUyTDMwLjE2NDEgMTguODJMNDYuMzc3IDIuNjA3MTFDNDcuMTU2NSAxLjgyNzYzIDQ4LjQxMzMgMS44Mjc2MyA0OS4xOTI4IDIuNjA3MTFDNDkuOTQyMyAzLjM1NjU4IDQ5Ljk0MjMgNC42NDM0MiA0OS4xOTI4IDUuMzkyODlaTTMyLjI3MzggMzIuMjE4MUwzMi45ODA5IDMyLjkyMzJMMzMuNjg3IDMyLjIxNzFMNjMuMzI3IDIuNTc3MTFDNjQuMTEwMSAxLjc5NDAzIDY1LjM1MjYgMS44MDczMiA2Ni4wOTQ5IDIuNTg4NzVMNjYuMzcxMSAyLjg3OTQ2QzY2LjkxMjggMy42NTYzMyA2Ni44MzY5IDQuNzI4NTQgNjYuMTQzMiA1LjQyMjU2QzY2LjE0MyA1LjQyMjY3IDY2LjE0MjkgNS40MjI3OCA2Ni4xNDI4IDUuNDIyODlMMzQuMzczMSAzNy4xNjI2TDM0LjM3MjggMzcuMTYyOUMzMy41OTMzIDM3Ljk0MjQgMzIuMzM2NSAzNy45NDI0IDMxLjU1NyAzNy4xNjI5TDE5LjAxNyAyNC42MjI5QzE4LjIzNzYgMjMuODQzNCAxOC4yMzc2IDIyLjU4NjYgMTkuMDE3IDIxLjgwNzFDMTkuNzk2NSAyMS4wMjc2IDIxLjA1MzMgMjEuMDI3NiAyMS44MzI4IDIxLjgwNzFMMjEuODMzOCAyMS44MDgxTDMyLjI3MzggMzIuMjE4MVpNMTQuNjA3IDM3LjE5MjlMMi4wNjcwMyAyNC42NTI5QzEuMjg3NTUgMjMuODczNCAxLjI4NzU1IDIyLjU4NjYgMi4wNjcwMyAyMS44MDcxQzIuODQ2MzEgMjEuMDI3OCA0LjEwMjcyIDIxLjAyNzYgNC44ODIyNCAyMS44MDY1QzQuODgyNDMgMjEuODA2NyA0Ljg4MjYyIDIxLjgwNjkgNC44ODI4MSAyMS44MDcxTDE4LjgxNzIgMzUuNzk4NkwxNy40MjI4IDM3LjE5MjlDMTYuNjQzMyAzNy45NzI0IDE1LjM4NjUgMzcuOTcyNCAxNC42MDcgMzcuMTkyOVoiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4K");
 }
 @media screen and (max-width: 999px) {
-  /* 499px以下のデバイスに対するスタイル */
+  /* 999px以下のデバイスに対するスタイル */
   :root {
-    --button-sizeA: 90px;
-    --button-sizeB: 110px;
+    --button-sizeA: 180px;
+    --button-sizeB: 180px;
     --font-size-label: 50px;
-    --font-size-li: 45px;
-    --font-size-other: 40px;
-    --margin-label: 30px 0px 30px 20px;
-    --margin-li: 40px 70px;
-    --margin-other: 30px 80px;
+    --font-size-li: 65px;
+    --font-size-other: 62px;
+    --margin-label: 20px 0px 30px 0px;
+    --margin-li: 60px 60px;
+    --margin-other: 80px 50px;
   }
 }
 
 @media screen and (min-width: 1000px) {
-  /* 500px以上のデバイスに対するスタイル */
+  /* 1000px以上のデバイスに対するスタイル */
   :root {
     --button-sizeA: 45px;
     --button-sizeB: 60px;

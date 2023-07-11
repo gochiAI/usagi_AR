@@ -172,7 +172,7 @@ var CONSTRAINTS = {
             position.y = offsetY - images[activeIndex].height / 2;
 
             drawImages();
-            console.log("drag");
+
           }
         }
 
@@ -183,47 +183,9 @@ var CONSTRAINTS = {
           activeIndex = -1;
 
           drawImages();
-          console.log("End");
+
         }
-        // ピンチインアウトイベント処理
-canvas.addEventListener("gesturestart", startPinch);
-canvas.addEventListener("gesturechange", pinchImage);
-canvas.addEventListener("gestureend", stopPinch);
-
-var initialDistance = 0;
-var initialWidth = 0;
-var initialHeight = 0;
-
-// ピンチインアウト開始処理
-function startPinch(event) {
-  initialDistance = getDistance(event.touches[0], event.touches[1]);
-  initialWidth = imageWidth;
-  initialHeight = imageHeight;
-}
-
-// ピンチインアウト処理
-function pinchImage(event) {
-  var currentDistance = getDistance(event.touches[0], event.touches[1]);
-  var scale = currentDistance / initialDistance;
-  for (var i = 0; i < images.length; i++) {
-    var img = images[i];
-    img.width = initialWidth * scale;
-    img.height = initialHeight * scale;
-  }
-  drawImages();  // 画像を再描画する
-}
-
-// ピンチインアウト終了処理
-function stopPinch() {
-  initialDistance = 0;
-}
-
-// 2つのタッチポイントの距離を計算する関数
-function getDistance(touch1, touch2) {
-  var deltaX = touch1.clientX - touch2.clientX;
-  var deltaY = touch1.clientY - touch2.clientY;
-  return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-}
+        
         // すべての画像を描画する関数
         function drawImages() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -321,9 +283,8 @@ function getDistance(touch1, touch2) {
             CharacterDatas[group][character].forEach((expression) => {
               const expressionName = Object.keys(expression)[0];
               const imagePath = expression[expressionName];
-
               html += `<div>
-      <img src="../${imagePath.replace("full", "face")}">
+      <img src="../${imagePath}">
     </div>`;
             });
 
@@ -349,6 +310,7 @@ function getDistance(touch1, touch2) {
 
       // 画像クリック時の処理
       function handleImageClick(imagePath) {
+        imagePath=imagePath.replace('_thumb','')
         const index = clickedList.indexOf(imagePath);
 
         if (index === -1) {
@@ -374,7 +336,7 @@ function getDistance(touch1, touch2) {
       imageElements.forEach((image) => {
         image.addEventListener("click", () => {
           handleImageClick(
-            image.getAttribute("src").replace("face", "full")
+            image.getAttribute("src")
           );
           updateImageDisplay();
         });
@@ -384,9 +346,9 @@ function getDistance(touch1, touch2) {
       function updateImageDisplay() {
         // リスト内の画像を強調するためのスタイルを追加
         imageElements.forEach((image) => {
-          const imagePath = image
+          let imagePath = image
             .getAttribute("src")
-            .replace("face", "full");
+          imagePath=imagePath.replace('_thumb','')
           if (clickedList.includes(imagePath)) {
             image.classList.add("selected");
           } else {

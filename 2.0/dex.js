@@ -10,59 +10,39 @@ var CONSTRAINTS = {
   App.controller("home", function (page) {
     $(page).on("appShow", function () {
       // ボタン要素を取得
-      const button = document.getElementById("button");
+      const button = document.getElementById("shutter");
 
       // モーダル要素とスクリーンショット表示用のimg要素を取得
       const modal = document.getElementById("modal");
       const screenshotImg = document.getElementById("screenshot");
-
-      // ボタンがクリックされたときのイベントリスナーを追加
-      button.addEventListener("click", function () {
-        const windowWidth =
-          window.innerWidth ||
-          document.documentElement.clientWidth ||
-          document.body.clientWidth;
-        const windowHeight =
-          window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight;
-
-        // ブラウザウィンドウの表示領域全体をスクリーンショットとして取得
-        html2canvas(document.querySelector(".app-content"), {
-          width: windowWidth,
-          height: windowHeight,
-          ignoreElements: (element) => {
-            // 除外する要素の条件を指定
-            const excludedClasses = ["app-button"]; // 除外したいクラス名を指定
-
-            // クラス名やIDが一致する要素を除外
-            if (element.classList) {
-              for (let className of excludedClasses) {
-                if (element.classList.contains(className)) {
-                  return true;
-                }
-              }
-            }
-
-            return false;
-          },
-          foreignObjectRendering: true,
-        }).then(function (canvas) {
-          // スクリーンショットをBase64エンコードされたJPG形式のデータURLに変換
-          const dataURL = canvas.toDataURL("image/jpeg");
-
-          // スクリーンショットをモーダル内のimg要素に表示
-          screenshotImg.src = dataURL;
-
-          // モーダルを表示
-          modal.style.display = "block";
-        });
-      });
-
+      const video = document.getElementById("video");
+      
       const canvas = document.getElementById("canvas");
       var curSTREAM = null;
-      const video = document.getElementById("video");
       const ctx = canvas.getContext("2d");
+// ボタンがクリックされたときのイベントリスナーを追加
+button.addEventListener("click", function () {
+  let windowWidth =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+  let windowHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+    const combine = document.createElement('canvas')
+
+combine.width=windowWidth;
+combine.height=windowHeight;
+// カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
+combine.getContext('2d').drawImage(video, 0, 0,windowWidth, windowHeight);
+combine.getContext('2d').drawImage(canvas, 0, 0 ,windowWidth, windowHeight);
+const canvasState = combine.toDataURL();
+screenshotImg.src = canvasState;
+// 画像をモーダルで開く
+modal.style.display = "flex";
+});
+
 
       // localStorageからclickedListの値を取得
       const clickedList = JSON.parse(localStorage.getItem("clickedList"));

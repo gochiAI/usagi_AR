@@ -14,6 +14,8 @@ var CONSTRAINTS = {
 
       // モーダル要素とスクリーンショット表示用のimg要素を取得
       const modal = document.getElementById("modal");
+      
+      const download_shot = document.getElementById('download_shot');
       const screenshotImg = document.getElementById("screenshot");
       const video = document.getElementById("video");
       
@@ -39,6 +41,15 @@ combine.getContext('2d').drawImage(video, 0, 0,windowWidth, windowHeight);
 combine.getContext('2d').drawImage(canvas, 0, 0 ,windowWidth, windowHeight);
 const canvasState = combine.toDataURL();
 screenshotImg.src = canvasState;
+  // ダウンロードリンクの設定
+  let d = new Date();
+  let month = d.getMonth() + 1;
+  let day = d.getDate();
+  let hour = d.getHours();
+  let minute = d.getMinutes();
+  let second = d.getSeconds();
+  download_shot.download = `${month}月${day}日_${hour}時${minute}分${second}秒.png`;
+  download_shot.href = canvasState;
 // 画像をモーダルで開く
 modal.style.display = "flex";
 });

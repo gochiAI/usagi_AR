@@ -164,6 +164,12 @@ main
 setting
 */
 #setting {
+  display: var(--set-dis);
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+
   position: relative;
   background-color: black;
 }
@@ -179,7 +185,7 @@ setting
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjgiIGhlaWdodD0iNjgiIHZpZXdCb3g9IjAgMCA2OCA2OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzRfMTkpIj4KPHBhdGggZD0iTTUzLjgzMzMgMTguMTYxN0w0OS44MzgzIDE0LjE2NjdMMzQgMzAuMDA1TDE4LjE2MTcgMTQuMTY2N0wxNC4xNjY3IDE4LjE2MTdMMzAuMDA1IDM0TDE0LjE2NjcgNDkuODM4M0wxOC4xNjE3IDUzLjgzMzNMMzQgMzcuOTk1TDQ5LjgzODMgNTMuODMzM0w1My44MzMzIDQ5LjgzODNMMzcuOTk1IDM0TDUzLjgzMzMgMTguMTYxN1oiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNF8xOSI+CjxyZWN0IHdpZHRoPSI2OCIgaGVpZ2h0PSI2OCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K");
 }
 #setting > .app-list {
-  margin: 80px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 #setting > .app-list > label {
   background-color: black;
@@ -261,13 +267,14 @@ setting
 @media screen and (min-width: 1000px) {
   /* 1000px以上のデバイスに対するスタイル */
   :root {
-    --button-sizeA: 45px;
+    --button-sizeA: 40px;
     --button-sizeB: 60px;
     --font-size-label: 40px;
     --font-size-li: 29px;
     --font-size-other: 25px;
-    --margin-label: 15px 2px;
-    --magin-li: 5px 30px;
-    --margin-other: 0px 30px;
+    --margin-label: 15px 10px;
+    --margin-li: 5px 30px;
+    --margin-other: 0px 70px;
+    --set-dis:flex;
   }
 }

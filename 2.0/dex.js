@@ -1,29 +1,12 @@
 var CONSTRAINTS = {
     audio: false,
     video: {
-      width: { min: 640, ideal: 1920, max: 1920 },
-      height: { min: 480, ideal: 1080, max: 1080 },
+      width: { ideal: window.innerWidth },
+      height: { ideal: window.innerHeight },
+      aspectRatio: { ideal: 999 },
       facingMode: null,
     },
   };
-
-  App.controller("home", function (page) {
-    $(page).on("appShow", function () {
-      // ボタン要素を取得
-      const button = document.getElementById("shutter");
-
-      // モーダル要素とスクリーンショット表示用のimg要素を取得
-      const modal = document.getElementById("modal");
-      
-      const download_shot = document.getElementById('download_shot');
-      const screenshotImg = document.getElementById("screenshot");
-      const video = document.getElementById("video");
-      
-      const canvas = document.getElementById("canvas");
-      var curSTREAM = null;
-      const ctx = canvas.getContext("2d");
-// ボタンがクリックされたときのイベントリスナーを追加
-button.addEventListener("click", function () {
   let windowWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -32,8 +15,35 @@ button.addEventListener("click", function () {
     window.innerHeight ||
     document.documentElement.clientHeight ||
     document.body.clientHeight;
-    const combine = document.createElement('canvas')
 
+
+  App.controller("home", function (page) {
+    $(page).on("appShow", function () {
+
+      // ボタン要素を取得
+      const button = document.getElementById("shutter");
+
+      // モーダル要素とスクリーンショット表示用のimg要素を取得
+      const modal = document.getElementById("modal");
+
+      const download_shot = document.getElementById('download_shot');
+      const screenshotImg = document.getElementById("screenshot");
+      const video = document.getElementById("video");
+      
+      const canvas = document.getElementById("canvas");
+      canvas.width=windowWidth;
+      canvas.height=windowHeight;
+      var curSTREAM = null;
+      const ctx = canvas.getContext("2d");
+      canvas.style.display='block'
+      video.style.display='block'
+// ボタンがクリックされたときのイベントリスナーを追加
+button.addEventListener("click", function () {
+  canvas.style.display='none'
+  video.style.display='none'
+
+  
+  const combine = document.createElement('canvas')
 combine.width=windowWidth;
 combine.height=windowHeight;
 // カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
@@ -52,26 +62,11 @@ screenshotImg.src = canvasState;
   download_shot.href = canvasState;
 // 画像をモーダルで開く
 modal.style.display = "flex";
-});
 
+});
 
       // localStorageからclickedListの値を取得
       const clickedList = JSON.parse(localStorage.getItem("clickedList"));
-
-      function resizeVideo() {
-        canvas.width =
-          window.innerWidth ||
-          document.documentElement.clientWidth ||
-          document.body.clientWidth;
-        canvas.height =
-          window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight;
-        video.style.width = "100%";
-        video.style.height = "100%";
-      }
-      window.addEventListener("resize", resizeVideo);
-      resizeVideo();
 
       function loadImage(url) {
         return new Promise((resolve, reject) => {
@@ -206,12 +201,14 @@ modal.style.display = "flex";
 
       let useFront = true;
       syncCamera(video, useFront);
+
       document
         .getElementById("camera-toggle")
         .addEventListener("click", () => {
           useFront = !useFront;
           syncCamera(video, useFront);
         });
+
       function syncCamera(video, is_front = true) {
         CONSTRAINTS.video.facingMode = is_front
           ? "user"
@@ -227,7 +224,10 @@ modal.style.display = "flex";
           .getUserMedia(CONSTRAINTS)
           .then((stream) => {
             curSTREAM = stream; // 前後の切り替え用に保持
-
+            const [track] = stream.getVideoTracks()
+            const settings = track.getSettings()
+            const {width, height} = settings // <4>
+            console.log(width,height)
             // <video>とStremaを接続
             video.srcObject = stream;
             video.onloadedmetadata = (e) => {

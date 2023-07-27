@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My App</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <mete
       name="viewport"
       content="width=device-width,height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    
+    >
+  
+    <title>My App</title>
     <link rel="stylesheet" href="appjs/app.min.css" />
     <link rel="stylesheet" href="./main.css" />
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="./list.js"></script>
-  </head>
-
+    </head>
   <body>
 
     <div class="app-page" data-page="home">
       <div class="app-content" id="main">
-        <div class="app-button left" id="camera-toggle"></div>
+        <div class="app-button left loos" id="camera-toggle"></div>
         <div
           class="app-button right"
           id="set_setting"
           data-target="setting"
         ></div>
-        <div class="app-button left" id="set_summon" data-target="summon"></div>
-        <button class="app-button" id="shutter"></button>
+        <div class="app-button left loos" id="set_summon" data-target="summon"></div>
+        <button class="app-button loos" id="shutter"></button>
 
         <div id="modal" style="display: none">
             <a id="download_shot">

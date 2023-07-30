@@ -1,20 +1,28 @@
+let windowWidth =
+window.innerWidth ||
+document.documentElement.clientWidth ||
+document.body.clientWidth;
+let windowHeight =
+window.innerHeight ||
+document.documentElement.clientHeight ||
+document.body.clientHeight;
+//スマホ対応
+if (windowWidth<windowHeight){
+  let i = windowWidth
+  windowWidth=windowHeight
+  windowHeight=i
+}
+
 var CONSTRAINTS = {
     audio: false,
     video: {
-      width: { ideal: window.innerWidth },
-      height: { ideal: window.innerHeight },
+      width: { ideal: windowWidth },
+      height: { ideal: windowHeight },
       aspectRatio: { ideal: 999 },
       facingMode: null,
     },
   };
-  let windowWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
-  let windowHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+
 
 
   App.controller("home", function (page) {

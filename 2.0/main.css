@@ -178,6 +178,7 @@ main
 setting
 */
 #setting {
+  background-color: black;
   display: var(--set-dis);
   flex-direction: column;
   flex-wrap: wrap;
@@ -185,7 +186,7 @@ setting
   align-items: center;
 
   position: relative;
-  background-color: black;
+
 }
 #setting > .app-button {
   position: absolute;
@@ -213,7 +214,7 @@ setting
   font-size: var(--font-size-li);
   margin: var(--margin-li);
 }
-#setting > .app-list > div#other {
+#setting > .app-list > div.other {
   background-color: black;
   color: white;
   font-size: var(--font-size-other);

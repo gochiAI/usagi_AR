@@ -1,3 +1,6 @@
+
+
+
 let windowWidth =
 window.innerWidth ||
 document.documentElement.clientWidth ||
@@ -6,18 +9,20 @@ let windowHeight =
 window.innerHeight ||
 document.documentElement.clientHeight ||
 document.body.clientHeight;
-//スマホ対応
-if (windowWidth<windowHeight){
-  let i = windowWidth
-  windowWidth=windowHeight
-  windowHeight=i
+
+var camera_Width=windowWidth
+var camera_Height=windowHeight
+
+if (windowWidth < windowHeight){
+  var camera_Width = windowHeight
+  var camera_Height = windowWidth
 }
 
 var CONSTRAINTS = {
     audio: false,
     video: {
-      width: { ideal: windowWidth },
-      height: { ideal: windowHeight },
+      width: { ideal: camera_Width },
+      height: { ideal: camera_Height },
       aspectRatio: { ideal: 999 },
       facingMode: null,
     },
@@ -50,7 +55,6 @@ button.addEventListener("click", function () {
   canvas.style.display='none'
   video.style.display='none'
 
-  
   const combine = document.createElement('canvas')
 combine.width=windowWidth;
 combine.height=windowHeight;

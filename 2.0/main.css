@@ -179,13 +179,9 @@ setting
 */
 #setting {
   background-color: black;
-  display: var(--set-dis);
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-content: center;
-  align-items: center;
-
   position: relative;
+  text-align: var(--set-dis);
+
 
 }
 #setting > .app-button {
@@ -200,31 +196,33 @@ setting
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjgiIGhlaWdodD0iNjgiIHZpZXdCb3g9IjAgMCA2OCA2OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzRfMTkpIj4KPHBhdGggZD0iTTUzLjgzMzMgMTguMTYxN0w0OS44MzgzIDE0LjE2NjdMMzQgMzAuMDA1TDE4LjE2MTcgMTQuMTY2N0wxNC4xNjY3IDE4LjE2MTdMMzAuMDA1IDM0TDE0LjE2NjcgNDkuODM4M0wxOC4xNjE3IDUzLjgzMzNMMzQgMzcuOTk1TDQ5LjgzODMgNTMuODMzM0w1My44MzMzIDQ5LjgzODNMMzcuOTk1IDM0TDUzLjgzMzMgMTguMTYxN1oiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNF8xOSI+CjxyZWN0IHdpZHRoPSI2OCIgaGVpZ2h0PSI2OCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K");
 }
 #setting > .app-list {
+  background-color: transparent;
   margin: 0px 0px 0px 0px;
 }
 #setting > .app-list > label {
-  background-color: black;
+  background-color: transparent;
   color: white;
   font-size: var(--font-size-label);
   margin: var(--margin-label);
 }
 #setting > .app-list > li {
-  background-color: black;
+  background-color: transparent;
   color: white;
   font-size: var(--font-size-li);
   margin: var(--margin-li);
 }
 #setting > .app-list > div.other {
-  background-color: black;
+  background-color: transparent;
   color: white;
   font-size: var(--font-size-other);
   margin: var(--margin-other);
 }
 #setting > .app-list > div.col {
-  background-color: black;
+  background-color: transparent;
   color: white;
   font-size: var(--font-size-other);
   margin: var(--margin-other);
+  justify-content: var(--set-dis)
 }
 #setting > .app-list > div.col > li#twitter {
   margin: 0px 10px 0 30;
@@ -291,6 +289,6 @@ setting
     --margin-label: 15px 10px;
     --margin-li: 5px 30px;
     --margin-other: 0px 70px;
-    --set-dis:flex;
+    --set-dis:center;
   }
 }

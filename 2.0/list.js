@@ -52,9 +52,10 @@ var CharacterDatas = {
       },
     ],
   },
-  //lessar: {
-    //All:[
-     // {"cocoa/rize":""},
-   // ]
- // },
+//lessar: {
+   // All:[
+     // {"cocoa":"aws.gochiusa.com/img/lessar/cocoa_thumb.png"},
+     // {"chino":"aws.gochiusa.com/img/lessar/chino_thumb.png"},
+    //]
+ //},
 };

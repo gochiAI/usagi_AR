@@ -211,17 +211,19 @@ modal.style.display = "flex";
           console.error(error);
         });
 
-      let useFront = true;
+        let useFront = localStorage.getItem("useFront") === "true" ? true : false;
+      
       syncCamera(video, useFront);
 
       document
         .getElementById("camera-toggle")
         .addEventListener("click", () => {
           useFront = !useFront;
+          localStorage.setItem("useFront", useFront);
           syncCamera(video, useFront);
         });
 
-      function syncCamera(video, is_front = true) {
+      function syncCamera(video, is_front = false) {
         CONSTRAINTS.video.facingMode = is_front
           ? "user"
           : { exact: "environment" };
@@ -248,7 +250,10 @@ modal.style.display = "flex";
           })
           .catch((err) => {
             console.log(`${err.name}: ${err.message}`);
-            alert("カメラとの接続時にエラーが発生しました");
+            alert("カメラとの接続時にエラーが発生しました\n");
+            useFront = !useFront;
+            localStorage.setItem("useFront", useFront);
+            syncCamera(video, useFront);
           });
       }
     });

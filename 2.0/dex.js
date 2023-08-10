@@ -32,35 +32,49 @@ var CONSTRAINTS = {
 
   App.controller("home", function (page) {
     $(page).on("appShow", function () {
+            // ボタン要素を取得
+            const button = document.getElementById("shutter");
 
-      // ボタン要素を取得
-      const button = document.getElementById("shutter");
-
-      // モーダル要素とスクリーンショット表示用のimg要素を取得
-      const modal = document.getElementById("modal");
-
-      const download_shot = document.getElementById('download_shot');
-      const screenshotImg = document.getElementById("screenshot");
-      const video = document.getElementById("video");
+            // モーダル要素とスクリーンショット表示用のimg要素を取得
+            const modal = document.getElementById("modal");
       
-      const canvas = document.getElementById("canvas");
-      canvas.width=windowWidth;
-      canvas.height=windowHeight;
-      var curSTREAM = null;
-      const ctx = canvas.getContext("2d");
-      canvas.style.display='block'
-      video.style.display='block'
+            const download_shot = document.getElementById('download_shot');
+            const screenshotImg = document.getElementById("screenshot");
+            const video = document.getElementById("video");
+            
+            const canvas = document.getElementById("canvas");
+            canvas.width=windowWidth;
+            canvas.height=windowHeight;
+            var curSTREAM = null;
+            const ctx = canvas.getContext("2d");
+            canvas.style.display='block'
+            video.style.display='block'
+
 // ボタンがクリックされたときのイベントリスナーを追加
 button.addEventListener("click", function () {
   canvas.style.display='none'
   video.style.display='none'
 
   const combine = document.createElement('canvas')
+  const ctx=combine.getContext('2d')
 combine.width=windowWidth;
 combine.height=windowHeight;
 // カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
-combine.getContext('2d').drawImage(video, 0, 0,windowWidth, windowHeight);
-combine.getContext('2d').drawImage(canvas, 0, 0 ,windowWidth, windowHeight);
+ctx.drawImage(video, 0, 0,windowWidth, windowHeight);
+ctx.drawImage(canvas, 0, 0 ,windowWidth, windowHeight);
+
+/*var savedStates = localStorage.getItem("toggleStates");
+if (savedStates) {
+  var states = JSON.parse(savedStates);
+  if(states.isShowLogo){
+    const image =  document.createElement('img');
+    image.src  = "/aws.gochiusa.com/img/closta_icon.png"
+    image.width = 100;
+    image.height = 100;
+    ctx.drawImage(image,0,0,100,100)
+  }}*/
+
+
 const canvasState = combine.toDataURL();
 screenshotImg.src = canvasState;
   // ダウンロードリンクの設定
@@ -74,7 +88,6 @@ screenshotImg.src = canvasState;
   download_shot.href = canvasState;
 // 画像をモーダルで開く
 modal.style.display = "flex";
-
 });
 
       // localStorageからclickedListの値を取得
@@ -106,6 +119,7 @@ modal.style.display = "flex";
         return images;
       }
       async function drawImagesOnCanvas(images) {
+        
         const positions = [];
         let startX = -100;
         let startY = 50;
@@ -170,7 +184,7 @@ modal.style.display = "flex";
             position.y = offsetY - images[activeIndex].height / 2;
 
             drawImages();
-
+  
           }
         }
 
@@ -206,6 +220,7 @@ modal.style.display = "flex";
       loadImages(clickedList)
         .then((images) => {
           drawImagesOnCanvas(images);
+          
         })
         .catch((error) => {
           console.error(error);
@@ -260,21 +275,51 @@ modal.style.display = "flex";
   });
 
   App.controller("setting", function (page) {
-    var boolSet = JSON.parse(localStorage.getItem("boolSet")) || {
-      show_date: false,
-      show_logo: false,
-    };
-    function switchbool(item) {
-      boolSet[item] = !boolSet[item];
-      localStorage.setItem("boolSet", JSON.stringify(boolSet));
-    }
+    $(page).on("appShow", function(page) {
+      var show_date = document.querySelector('#is_show_date');
+      var show_logo = document.querySelector('#is_show_logo');
+      
+      // Initialize Switchery for show_date toggle
+      var switchery_date = new Switchery(show_date);
+    
+      // Initialize Switchery for show_logo toggle
+      var switchery_logo = new Switchery(show_logo);
+    
+      // Load and apply saved toggle states from localStorage
+      var savedStates = localStorage.getItem("toggleStates");
+      if (savedStates) {
+        var states = JSON.parse(savedStates);
+        if (states.isShowDate) {
+          switchery_date.setPosition(true);
+        }
+        if (states.isShowLogo) {
+          switchery_logo.setPosition(true);
+        }
+      }
+    
+      // Listen for changes in toggle states
+      show_date.addEventListener("change", function() {
+        var newState = show_date.checked;
+        var states = JSON.parse(localStorage.getItem("toggleStates")) || {};
+        states.isShowDate = newState;
+        localStorage.setItem("toggleStates", JSON.stringify(states));
+      });
+    
+      show_logo.addEventListener("change", function() {
+        var newState = show_logo.checked;
+        var states = JSON.parse(localStorage.getItem("toggleStates")) || {};
+        states.isShowLogo = newState;
+        localStorage.setItem("toggleStates", JSON.stringify(states));
+      });
+    });
+    
 
-    // Assign the switchbool function to the global scope for accessibility
-    window.switchbool = switchbool;
   });
 
   App.controller("summon", function (page) {
+    
     $(page).on("appShow", function () {
+
       var Items = localStorage.getItem("selectedImage") || [];
       function generateHTML() {
         let html = "";

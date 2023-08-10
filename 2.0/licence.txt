@@ -1,0 +1,23 @@
+このサービスを利用されるすべての方に、このライセンスをよくお読みください。
+
+このサービスを使用するとき、このライセンスの条項に拘束されることに同意したことになります。
+
+usagi_AR/2.0(以降: v2.0)は、gochi_AIの元制作されました。
+
+そのプログラムを無断で複製、改変、転載などの行為を禁止します。
+また一部のプログラムはMITライセンスの元、配布されたものを使用しています。
+
+以下にそれらを紹介させていただきます。
+
+App.js v2.1.2
+Instant mobile web app creation
+Copyright (c) 2012 Kik Interactive, http://kik.com
+Released under the MIT license
+
+iScroll v4.1.6
+Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+Released under the MIT license
+
+Zepto v1.0rc1 
+polyfill zepto event detect fx ajax form touch
+https://zeptojs.com/license

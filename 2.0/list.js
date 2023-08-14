@@ -52,10 +52,16 @@ var CharacterDatas = {
       },
     ],
   },
-//lessar: {
-   // All:[
-     // {"cocoa":"aws.gochiusa.com/img/lessar/cocoa_thumb.png"},
-     // {"chino":"aws.gochiusa.com/img/lessar/chino_thumb.png"},
-    //]
- //},
+lessarp: {
+   All:[
+      {"cocoa":"aws.gochiusa.com/img/lessarp/cocoa_thumb.png"},
+      {"chino":"aws.gochiusa.com/img/lessarp/chino_thumb.png"},
+      {"rize":"aws.gochiusa.com/img/lessarp/rize_thumb.png"},
+      {"chiya":"aws.gochiusa.com/img/lessarp/chiya_thumb.png"},
+      {"maya":"aws.gochiusa.com/img/lessarp/maya_thumb.png"},
+      {"megu":"aws.gochiusa.com/img/lessarp/megu_thumb.png"},
+      {"syaro":"aws.gochiusa.com/img/lessarp/syaro_thumb.png"},
+      {"fuyu":"aws.gochiusa.com/img/lessarp/fuyu_thumb.png"}
+   ]
+ },
 };

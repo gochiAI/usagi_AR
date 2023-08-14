@@ -1,4 +1,7 @@
-
+/*gochi_AI
+support by chatgpt
+don't copy
+*/
 
 
 let windowWidth =
@@ -369,7 +372,7 @@ modal.style.display = "flex";
         if (index === -1) {
           // リストに追加
           clickedList.push(imagePath);
-          if (clickedList.length > 5) {
+          if (clickedList.length >= 3) {
             // リストの長さが5を超える場合、先頭の要素を削除
             clickedList.shift();
           }

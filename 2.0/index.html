@@ -122,6 +122,8 @@ function help(){
 App.load('home')
 const driver = window.driver.js.driver;
 const driverObj = driver({
+  nextBtnText: 'NEXT',
+  prevBtnText: 'Pre',
   showProgress: true,
   steps: [
     {element:'#set_summon',popover: {description: 'ここを押すとキャラクターを追加するページに飛びます。', side: "top", align: 'start',

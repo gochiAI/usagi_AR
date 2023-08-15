@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    
-    <meta name="description" content="gochiusa AR camera">
-    <meta name="keywords" content="gochiusa">
-    <meta property="og:title" content="usagi_AR">
-    <meta property="og:description" content="gochiusa AR">
-    <meta property="og:url" content="https://yumemi.web.app/usagi_AR/2.0">
-    <meta property="og:image" content="https://yumemi.web.app/usagi_AR/aws.gochiusa.com/ogp.png"> 
-    <meta property="twitter:card" content="summary_large_image"> 
-    <meta property="twitter:site" content="@gochi_ai">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <meta name="description" content="gochiusa AR camera" />
+    <meta name="keywords" content="gochiusa" />
+    <meta property="og:title" content="usagi_AR" />
+    <meta property="og:description" content="gochiusa AR" />
+    <meta property="og:url" content="https://yumemi.web.app/usagi_AR/2.0" />
+    <meta
+      property="og:image"
+      content="https://yumemi.web.app/usagi_AR/aws.gochiusa.com/ogp.png"
+    />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@gochi_ai" />
     <title>My App</title>
     <link rel="stylesheet" href="appjs/app.min.css" />
     <!--<script src="switchery-0.8.2/dist/switchery.js"></script>
     <link rel="stylesheet" href="switchery-0.8.2/dist/switchery.css" />-->
-    
-    <link rel="stylesheet" href="./main.css" />
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="./list.js"></script>
-    <!--<script src="help.js">-->
-    </script>
 
-    </head>
+    <link rel="stylesheet" href="./main.css" />
+    <script src="./html2canvas.min.js"></script>
+    <script src="./list.js"></script>
+    <script src="driver.js">
+    
+    </script>
+    <link rel="stylesheet" href="driver.css"/>
+  </head>
 
   <body>
     <mete
-    name="viewport"
-    content="width=device-width,height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
-  
+      name="viewport"
+      content="width=device-width,height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
     <div class="app-page" data-page="home">
       <div class="app-content" id="main">
         <div class="app-button left loos" id="camera-toggle"></div>
@@ -38,15 +42,18 @@
           id="set_setting"
           data-target="setting"
         ></div>
-        <div class="app-button left loos" id="set_summon" data-target="summon"></div>
+        <div
+          class="app-button left loos"
+          id="set_summon"
+          data-target="summon"
+        ></div>
         <button class="app-button loos" id="shutter"></button>
-
+        
         <div id="modal" style="display: none">
-            <a id="download_shot">
+          <a id="download_shot">
             <img id="screenshot" src="" alt="スクリーンショット" />
-            
-            </a>
-            クリックで保存
+          </a>
+          クリックで保存
           <div class="app-button" data-target="home"></div>
         </div>
         <canvas id="canvas" width="360" height="740"></canvas>
@@ -54,9 +61,8 @@
       </div>
     </div>
 
-    <div class="app-page" data-page="setting" >
-      <div class="app-content" id="setting" >
-        
+    <div class="app-page" data-page="setting">
+      <div class="app-content" id="setting">
         <div class="app-button" data-target="home"></div>
         <ul class="app-list">
           <!--<label>Display(表示)</label>
@@ -66,6 +72,8 @@
           <li>
             <input type="checkbox" id="is_show_logo"  />ロゴ表示
           </li>-->
+          <label>guide(チュートリアル)</label>
+          <button onclick="help()">CLICK HERE</button>
           <label>Other(その他)</label>
           <div class="other">
             usagi_AR 2023-<br />
@@ -91,15 +99,12 @@
               id="github"
               onclick="window.location='https:\/\/github.com\/gochiAI\/usagi_AR'"
             ></li>
-
           </div>
-          <label>
-            LICENCE
-          </label>
+          <label> LICENCE </label>
           <div class="other">
-          by gochi_AI|2023-|</br>Reproduction or reprinting prohibited.|</br>Let's build this place together.
-
-        </div>
+            by gochi_AI|2023-|<br />Reproduction or reprinting prohibited.|<br />Let's
+            build this place together.
+          </div>
         </ul>
       </div>
     </div>
@@ -109,12 +114,50 @@
         <div class="app-button" data-target="home"></div>
       </div>
     </div>
-    <div class="app-page" data-page="help">
-      
-      <div class="app-button" data-target="home">close help</div>
-    </div>
     <script src="appjs/zepto.js"></script>
     <script src="appjs/app.min.js"></script>
-    <script src="./dex.js"></script>
+    <script type="module" src="./dex.js"></script>
+    <script>
+function help(){
+App.load('home')
+const driver = window.driver.js.driver;
+const driverObj = driver({
+  showProgress: true,
+  steps: [
+    {element:'#set_summon',popover: {description: 'ここを押すとキャラクターを追加するページに飛びます。', side: "top", align: 'start',
+    onNextClick: () => {
+      App.load('summon', () => {
+              driverObj.moveNext();
+            });
+    },}},
+    {element:'#chara',popover:{description:'ここに追加できるすべてのキャラクターがいます<br\>移動の操作の限界から3枚まで選べるようにしています。',
+  onNextClick:()=>{
+    let clickedList = [];
+
+  localStorage.setItem("clickedList", JSON.stringify(clickedList));
+
+  clickedList.push("../aws.gochiusa.com/img/ekimemo/chino_smile.png");
+  localStorage.setItem("clickedList", JSON.stringify(clickedList));
+    App.load('home',()=>{
+      driverObj.moveNext();
+    })
+  }}},
+  {
+    element:"#main",popover:{description:'キャラを追加して戻ると、このような感じになります。<br/>画像を移動させることができます。'}
+  },
+{element:"#camera-toggle",popover:{description:'このボタンを押すとカメラが変わります。(まだうまくいかないときのほうが多いです。)'}},
+{element:"#set_setting",popover:{description:'ここを押すとクレジットなどが見れます。<br/>ヘルプをもう一度見たい時もここから'}},
+{element:"#shutter",popover:{description:'写真を撮りたいときはここを押してね'}}
+  ]
+});
+
+driverObj.drive();
+document.cookie = 'visited=true path=/';
+}
+if(document.cookie.indexOf('visited=true') === -1){
+window.addEventListener('load',help)
+}
+
+    </script>
   </body>
 </html>

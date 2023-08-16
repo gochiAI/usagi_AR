@@ -78,4 +78,16 @@
       <a href="./2.0/">Open Dev AR content</a>
     </div>
   </body>
+  <script>
+    window.addEventListener('load', function () {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('./sw.js')
+            .then(function (registration) {
+              console.log("sw registed.");
+            }).catch(function (error) {
+              console.warn("sw error.", error);
+            });
+        }
+      });
+      </script>
 </html>

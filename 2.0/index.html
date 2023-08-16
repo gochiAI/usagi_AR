@@ -73,7 +73,7 @@
             <input type="checkbox" id="is_show_logo"  />ロゴ表示
           </li>-->
           <label>guide(チュートリアル)</label>
-          <button onclick="help()">CLICK HERE</button>
+          <button class="app-button" onclick="help()">CLICK HERE</button>
           <label>Other(その他)</label>
           <div class="other">
             usagi_AR 2023-<br />
@@ -118,44 +118,79 @@
     <script src="appjs/app.min.js"></script>
     <script type="module" src="./dex.js"></script>
     <script>
-function help(){
-App.load('home')
-const driver = window.driver.js.driver;
-const driverObj = driver({
-  nextBtnText: 'NEXT',
-  prevBtnText: 'Pre',
-  showProgress: true,
-  steps: [
-    {element:'#set_summon',popover: {description: 'ここを押すとキャラクターを追加するページに飛びます。', side: "top", align: 'start',
-    onNextClick: () => {
-      App.load('summon', () => {
-              driverObj.moveNext();
-            });
-    },}},
-    {element:'#chara',popover:{description:'ここに追加できるすべてのキャラクターがいます<br\>移動の操作の限界から3枚まで選べるようにしています。',
-  onNextClick:()=>{
-    let clickedList = [];
-
-  localStorage.setItem("clickedList", JSON.stringify(clickedList));
-
-  clickedList.push("../aws.gochiusa.com/img/ekimemo/chino_smile.png");
-  localStorage.setItem("clickedList", JSON.stringify(clickedList));
-    App.load('home',()=>{
-      driverObj.moveNext();
-    })
-  }}},
-  {
-    element:"#main",popover:{description:'キャラを追加して戻ると、このような感じになります。<br/>画像を移動させることができます。'}
-  },
-{element:"#camera-toggle",popover:{description:'このボタンを押すとカメラが変わります。(まだうまくいかないときのほうが多いです。)'}},
-{element:"#set_setting",popover:{description:'ここを押すとクレジットなどが見れます。<br/>ヘルプをもう一度見たい時もここから'}},
-{element:"#shutter",popover:{description:'写真を撮りたいときはここを押してね'}}
-  ]
-});
-
-driverObj.drive();
-document.cookie = 'visited=true path=/';
+function getUserLanguage() {
+  const userLanguage = navigator.language || navigator.userLanguage;
+  return userLanguage;
 }
+
+function help() {
+  App.load('home');
+  const driver = window.driver.js.driver;
+  var userLanguage = getUserLanguage();
+if(userLanguage!=='ja'){
+  userLanguage='en'
+}
+  const stepDescriptions = {
+    ja: {
+      set_summon: 'ここを押すとキャラクターを追加するページに飛びます。',
+      chara: 'ここに追加できるすべてのキャラクターがいます<br\>移動の操作の限界から3枚まで選べるようにしています。',
+      main: 'キャラを追加して戻ると、このような感じになります。<br/>画像を移動させることができます。',
+      camera_toggle: 'このボタンを押すとカメラが変わります。(まだうまくいかないときのほうが多いです。)',
+      set_setting: 'ここを押すとクレジットなどが見れます。<br/>ヘルプをもう一度見たい時もここから',
+      shutter: '写真を撮りたいときはここを押してね',
+      nextBtnText: '次へ',
+      prevBtnText: '前へ'
+    },
+    en: {
+      set_summon: 'Click here to go to the page where you can add characters.',
+      chara: 'All available characters for adding are listed here. You can select up to 3 cards to move beyond the limit of operation.',
+      main: 'After adding characters and returning, it will look like this. You can move the images around.',
+      camera_toggle: 'Click this button to switch the camera. (It often doesn\'t work properly yet.)',
+      set_setting: 'Click here to view credits and more. You can also access Help again from here.',
+      shutter: 'Click here when you want to take a photo.',
+      nextBtnText: 'NEXT',
+      prevBtnText: 'Previous'
+    }
+  };
+
+  const driverObj = driver({
+    nextBtnText: stepDescriptions[userLanguage].nextBtnText,
+    prevBtnText: stepDescriptions[userLanguage].prevBtnText,
+    showProgress: true,
+    steps: [
+      { element: '#set_summon', popover: { description: stepDescriptions[userLanguage].set_summon, side: "top", align: 'start',
+        onNextClick: () => {
+          App.load('summon', () => {
+            driverObj.moveNext();
+          });
+        }
+      }},
+      { element: '#chara', popover: { description: stepDescriptions[userLanguage].chara,
+        onNextClick: () => {
+          let clickedList = [];
+
+          localStorage.setItem("clickedList", JSON.stringify(clickedList));
+
+          clickedList.push("../aws.gochiusa.com/img/ekimemo/chino_smile.png");
+          localStorage.setItem("clickedList", JSON.stringify(clickedList));
+
+          App.load('home', () => {
+            driverObj.moveNext();
+          });
+        }
+      }},
+      { element: "#main", popover: { description: stepDescriptions[userLanguage].main }},
+      { element: "#camera-toggle", popover: { description: stepDescriptions[userLanguage].camera_toggle }},
+      { element: "#set_setting", popover: { description: stepDescriptions[userLanguage].set_setting }},
+      { element: "#shutter", popover: { description: stepDescriptions[userLanguage].shutter }}
+    ]
+  });
+
+  driverObj.drive();
+  document.cookie = 'visited=true';
+}
+
+
 if(document.cookie.indexOf('visited=true') === -1){
 window.addEventListener('load',help)
 }

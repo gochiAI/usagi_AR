@@ -124,7 +124,7 @@ function getUserLanguage() {
 }
 
 function help() {
-  App.load('home');
+
   const driver = window.driver.js.driver;
   var userLanguage = getUserLanguage();
 if(userLanguage!=='ja'){
@@ -158,7 +158,8 @@ if(userLanguage!=='ja'){
     prevBtnText: stepDescriptions[userLanguage].prevBtnText,
     showProgress: true,
     steps: [
-      { element: '#set_summon', popover: { description: stepDescriptions[userLanguage].set_summon, side: "top", align: 'start',
+     { 
+        element: '#set_summon', popover: { description: stepDescriptions[userLanguage].set_summon, side: "top", align: 'start',
         onNextClick: () => {
           App.load('summon', () => {
             driverObj.moveNext();
@@ -186,11 +187,10 @@ if(userLanguage!=='ja'){
     ]
   });
 
-  driverObj.drive();
+  App.load("home",()=>{driverObj.drive();})
+
   document.cookie = 'visited=true';
 }
-
-
 if(document.cookie.indexOf('visited=true') === -1){
 window.addEventListener('load',help)
 }

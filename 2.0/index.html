@@ -73,7 +73,7 @@
             <input type="checkbox" id="is_show_logo"  />ロゴ表示
           </li>-->
           <label>guide(チュートリアル)</label>
-          <button class="app-button" onclick="help()">CLICK HERE</button>
+          <button class="app-button" id="help" onclick="help()">CLICK HERE</button>
           <label>Other(その他)</label>
           <div class="other">
             usagi_AR 2023-<br />
@@ -187,7 +187,9 @@ if(userLanguage!=='ja'){
     ]
   });
 
-  App.load("home",()=>{driverObj.drive();})
+App.load("home",()=>{driverObj.drive();})
+
+
 
   document.cookie = 'visited=true';
 }

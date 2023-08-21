@@ -124,6 +124,9 @@ setting
   position: relative;
   text-align: var(--set-dis);
 }
+button#help {
+  margin: var(--button-help-m);
+}
 #setting > .app-button {
   position: absolute;
   right: 0%;
@@ -263,6 +266,7 @@ media devices
     --margin-label: 20px 0px 30px 0px;
     --margin-li: 60px 60px;
     --margin-other: 80px 50px;
+    --button-help-m:10px 0px 10px 40px;
   }
 }
 

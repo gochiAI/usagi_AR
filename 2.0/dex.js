@@ -3,7 +3,6 @@ support by chatgpt
 don't copy
 */
 
-
 let windowWidth =
   window.innerWidth ||
   document.documentElement.clientWidth ||
@@ -16,7 +15,7 @@ let windowHeight =
 var camera_Width = windowWidth;
 var camera_Height = windowHeight;
 
-var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
+var isMobile = /(iPhone|Android|Mobile|ipad)/i.test(navigator.userAgent);
 
 // モバイルなら回転判定をキャッチする
 if (isMobile) {
@@ -269,11 +268,21 @@ if (savedStates) {
           };
         })
         .catch((err) => {
-          console.log(`${err.name}: ${err.message}`);
-          alert("カメラとの接続時にエラーが発生しました\n");
-          useFront = !useFront;
-          localStorage.setItem("useFront", useFront);
-          syncCamera(video, useFront);
+          if(err.name==='NotAllowedError'){
+            alert("カメラの接続権限がありません\n");
+            window.location.href='../'
+          }
+          if(err.name==='OverconstrainedError'){
+            alert("カメラがありません\n");
+            useFront = !useFront;
+            localStorage.setItem("useFront", useFront);
+            syncCamera(video, useFront);
+          }
+          else{
+            console.log(`${err.name}: ${err.message}`);
+            alert(`${err.name}: ${err.message}`);
+          }
+          
         });
     }
   });

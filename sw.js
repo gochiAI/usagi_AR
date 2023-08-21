@@ -11,12 +11,14 @@ const {registerRoute,setDefaultHandler} = workbox.routing;
 const {CacheFirst,StaleWhileRevalidate,NetworkFirst} = workbox.strategies;
 const {CacheableResponsePlugin} = workbox.cacheableResponse;
 const {precacheAndRoute} = workbox.precaching;
+const {ExpirationPlugin} = workbox.expiration;
 
 // https://developer.chrome.com/docs/workbox/modules/workbox-core/
 setCacheNameDetails({
   prefix: 'usagi_AR',
-  suffix: 'v2.3',
-  precache: 'install-assets'
+  suffix: 'v2.',
+  precache: 'assets',
+  maxAgeSeconds: 7 * 24 * 60 * 60
 });
 // Skip over the waiting lifecycle stage.
 skipWaiting();
@@ -32,6 +34,9 @@ registerRoute(
       new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 Days
+      })
     ],
   })
 );
@@ -45,6 +50,10 @@ registerRoute(
       new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 Days
+      })
+
     ],
   })
 );
@@ -78,7 +87,11 @@ setDefaultHandler(
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200]
+      }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 Days
       })
+
     ]
   })
 );

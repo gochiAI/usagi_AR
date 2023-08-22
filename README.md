@@ -38,6 +38,8 @@ It will be machine translated, but it's better than nothing (maybe).
 
 <br/>
 <h1>CHANGE LOG</h1>
+<h2 name="~v.2.9">~v.2.9</h2>
+<a href='https://github.com/gochiAI/usagi_AR/discussions/5'>CHECK</a>
 <h2 name="v2.9_3">v.2.9^3</h2>
 
 - Display of ver names

@@ -15,21 +15,23 @@ let windowHeight =
 var camera_Width = windowWidth;
 var camera_Height = windowHeight;
 
-var isMobile = /(iPhone|Android|Mobile|ipad)/i.test(navigator.userAgent);
+var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
 
-// モバイルなら回転判定をキャッチする
 if (isMobile) {
-  switch (screen.orientation.type) {
-    case "landscape-primary":
-      camera_Width = windowWidth;
-      camera_Height = windowHeight;
-      break;
-    case "portrait-primary":
-      camera_Width = windowHeight;
-      camera_Height = windowWidth;
-      break;
+  if (screen.orientation) {
+    switch (screen.orientation.type) {
+      case "landscape-primary":
+        camera_Width = windowWidth;
+        camera_Height = windowHeight;
+        break;
+      case "portrait-primary":
+        camera_Width = windowHeight;
+        camera_Height = windowWidth;
+        break;
+    }
   }
 }
+
 var CONSTRAINTS = {
   audio: false,
   video: {

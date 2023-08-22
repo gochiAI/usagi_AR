@@ -294,6 +294,7 @@ App.controller("setting", function (page) {
   $(page).on("appShow", function (page) {
     var show_date = document.querySelector("#is_show_date");
     var show_logo = document.querySelector("#is_show_logo");
+
 /*
     // Initialize Switchery for show_date toggle
     var switchery_date = new Switchery(show_date);

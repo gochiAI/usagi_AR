@@ -26,6 +26,7 @@
     
     </script>
     <link rel="stylesheet" href="driver.css"/>
+
     <!--<script data-consolejs-channel="" src="https://remotejs.com/agent/agent.js"></script>-->
   </head>
 
@@ -106,6 +107,11 @@
             by gochi_AI|2023-|<br />Reproduction or reprinting prohibited.|<br />Let's
             build this place together.
           </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 27px; margin: 7px; color: #ffffff;">
+            <div style="text-align: start; flex: 1;" onclick="newApp()">Update APP</div>
+            <div style="text-align: end;">ver.2.9^3</div>
+          </div>
+          
         </ul>
       </div>
     </div>
@@ -119,6 +125,14 @@
     <script src="appjs/app.min.js"></script>
     <script type="module" src="./dex.js"></script>
     <script>
+      function newApp(){
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+      });
+      window.location.reload()
+    }
 function getUserLanguage() {
   const userLanguage = navigator.language || navigator.userLanguage;
   return userLanguage;

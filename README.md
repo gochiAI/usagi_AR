@@ -36,5 +36,14 @@ We want to touch as many people as possible, so we are making it multilingual.
 Please let me know if there are any languages you need.  
 It will be machine translated, but it's better than nothing (maybe).  
 
+<br/>
+<h1>CHANGE LOG</h1>
+<h2 name="v2.9_3">v.2.9^3</h2>
+
+- Display of ver names
+- Installation of a button to clear the cache
+- Correction of some UI
+- Correction of some device bugs
+
 
 

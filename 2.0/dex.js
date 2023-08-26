@@ -255,37 +255,45 @@ if (savedStates) {
         });
       }
 
-      navigator.mediaDevices
-        .getUserMedia(CONSTRAINTS)
-        .then((stream) => {
-          curSTREAM = stream; // 前後の切り替え用に保持
-          const [track] = stream.getVideoTracks();
-          const settings = track.getSettings();
-          const { width, height } = settings; // <4>
-          console.log(width, height);
-          // <video>とStremaを接続
-          video.srcObject = stream;
-          video.onloadedmetadata = (e) => {
-            video.play();
-          };
-        })
-        .catch((err) => {
-          if(err.name==='NotAllowedError'){
-            alert("カメラの接続権限がありません\n");
-            window.location.href='../'
-          }
-          if(err.name==='OverconstrainedError'){
-            alert("カメラがありません\n");
-            useFront = !useFront;
-            localStorage.setItem("useFront", useFront);
-            syncCamera(video, useFront);
-          }
-          else{
-            console.log(`${err.name}: ${err.message}`);
-            alert(`${err.name}: ${err.message}`);
-          }
-          
-        });
+
+        function initializeCamera() {
+          navigator.mediaDevices
+          .getUserMedia(CONSTRAINTS)
+          .then((stream) => {
+            curSTREAM = stream; // 前後の切り替え用に保持
+            const [track] = stream.getVideoTracks();
+            const settings = track.getSettings();
+            const { width, height } = settings; // <4>
+            console.log(width, height);
+            // <video>とStremaを接続
+            video.srcObject = stream;
+            video.onloadedmetadata = (e) => {
+              video.play();
+            };
+          })
+            .catch((err) => {
+              if (err.name === 'NotReadableError') {
+                // カメラが読み取れないエラーが発生した場合、再接続を試みる
+                initializeCamera();
+                window.location.reload()
+              } else if (err.name === 'NotAllowedError') {
+                alert('カメラの接続権限がありません\n');
+                window.location.href = '../';
+              } else if (err.name === 'OverconstrainedError') {
+                alert('カメラがありません\n');
+                useFront = !useFront;
+                localStorage.setItem('useFront', useFront);
+                syncCamera(video, useFront);
+              } else {
+                console.log(`${err.name}: ${err.message}`);
+                alert(`${err.name}: ${err.message}`);
+              }
+            });
+        }
+        
+        // 初回カメラ初期化を実行
+        initializeCamera();
+        
     }
   });
 });

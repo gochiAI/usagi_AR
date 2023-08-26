@@ -1,3 +1,5 @@
+![](無題1_20230731153352.png)
+
 <h1>INFO</h1>
 v.2.0~ global release soon..
 

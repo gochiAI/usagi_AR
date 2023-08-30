@@ -109,7 +109,7 @@
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; font-size: 27px; margin: 7px; color: #ffffff;">
             <div style="text-align: start; flex: 1;" onclick="newApp()">Update APP</div>
-            <div style="margin-left:40px;text-align: end;background-color: rgb(195, 29, 112);"><a href='https://github.com/gochiAI/usagi_AR#v293'>ver.2.9^3</a></div>
+            <div style="margin-left:40px;text-align: end;background-color: rgb(195, 29, 112);"><a href='https://github.com/gochiAI/usagi_AR#v293'>ver.2.9^4b</a></div>
           </div>
           
         </ul>
@@ -134,17 +134,23 @@
       window.location.reload()
     }
 function getUserLanguage() {
-  const userLanguage = navigator.language || navigator.userLanguage;
-  return userLanguage;
+  const currentLanguage = navigator.language || navigator.userLanguage;
+  return currentLanguage.toLowerCase();
 }
+
+//console.log('言語設定:'+getUserLanguage());
 
 function help() {
 
   const driver = window.driver.js.driver;
-  var userLanguage = getUserLanguage();
-if(userLanguage!=='ja'){
-  userLanguage='en'
-}
+  const currentLanguage = getUserLanguage();
+
+  if (currentLanguage === "ja" || currentLanguage === "ja-jp"|| currentLanguage==='ja-JP') {
+    userLanguage='ja'
+  } else {
+    userLanguage='en'
+  }
+
   const stepDescriptions = {
     ja: {
       set_summon: 'ここを押すとキャラクターを追加するページに飛びます。',

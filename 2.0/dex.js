@@ -264,7 +264,7 @@ if (savedStates) {
             const [track] = stream.getVideoTracks();
             const settings = track.getSettings();
             const { width, height } = settings; // <4>
-            console.log(width, height);
+            //console.log(width, height);
             // <video>とStremaを接続
             video.srcObject = stream;
             video.onloadedmetadata = (e) => {

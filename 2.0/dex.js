@@ -16,7 +16,7 @@ var camera_Width = windowWidth;
 var camera_Height = windowHeight;
 
 var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
-
+var is_PC = /(PC)/i.test(navigator.userAgent);
 if (isMobile) {
   if (screen.orientation) {
     switch (screen.orientation.type) {
@@ -35,9 +35,9 @@ if (isMobile) {
 var CONSTRAINTS = {
   audio: false,
   video: {
-    width: { ideal: camera_Width },
-    height: { ideal: camera_Height },
-    aspectRatio: { ideal: 999 },
+    width: { ideal: camera_Width }, // モバイルデバイスなら画面幅を使用、それ以外なら1920を指定
+    height: { ideal: camera_Height }, // モバイルデバイスなら画面高さを使用、それ以外なら1080を指定
+    aspectRatio: { ideal: 16 / 9 }, // アスペクト比を設定（例：16:9）
     facingMode: null,
   },
 };
@@ -60,8 +60,19 @@ App.controller("home", function (page) {
     canvas.height = windowHeight;
     var curSTREAM = null;
     const ctx = canvas.getContext("2d");
+    
     canvas.style.display = "block";
     video.style.display = "block";
+    /*var savedStates = localStorage.getItem("toggleStates");
+    if (savedStates) {
+      var states = JSON.parse(savedStates);
+      if(states.isShowLogo){
+        const image =  document.createElement('img');
+        image.src  = "/aws.gochiusa.com/img/closta_icon.png"
+        image.width = 100;
+        image.height = 100;
+        ctx.drawImage(image,0,0,100,100)
+      }}*/
 
     function butotnClick() {
       canvas.style.display = "none";
@@ -74,17 +85,6 @@ App.controller("home", function (page) {
       // カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
       ctx.drawImage(video, 0, 0, windowWidth, windowHeight);
       ctx.drawImage(canvas, 0, 0, windowWidth, windowHeight);
-
-      /*var savedStates = localStorage.getItem("toggleStates");
-if (savedStates) {
-  var states = JSON.parse(savedStates);
-  if(states.isShowLogo){
-    const image =  document.createElement('img');
-    image.src  = "/aws.gochiusa.com/img/closta_icon.png"
-    image.width = 100;
-    image.height = 100;
-    ctx.drawImage(image,0,0,100,100)
-  }}*/
 
       const canvasState = combine.toDataURL();
       screenshotImg.src = canvasState;
@@ -130,16 +130,37 @@ if (savedStates) {
       }
       return images;
     }
-    async function drawImagesOnCanvas(images) {
-      const positions = [];
-      let startX = -100;
-      let startY = 50;
 
-      for (const image of images) {
-        startX += 100;
-        const position = { x: startX, y: startY };
-        positions.push(position);
-        await drawImage(image, position);
+    async function drawImagesOnCanvas(images) {
+      const savedPositions = localStorage.getItem('savedPositions');
+const positions = savedPositions ? JSON.parse(savedPositions) : [];
+let startX = -100;
+let startY = 50;
+      if (savedPositions){
+
+      for (let i = 0; i < images.length; i++) {
+        if (positions[i]){
+          const position =  positions[i]
+          await drawImage(images[i], position);
+        }
+        else{
+          const position = { x: startX+(100*i), y: startY+(100*i) }
+          positions.push(position);
+          await drawImage(images[i], position);
+        }
+        
+        localStorage.setItem('savedPositions',JSON.stringify( positions))
+      }
+      }else{
+
+  
+        for (const image of images) {
+          startX += 100;
+          const position = { x: startX, y: startY };
+          positions.push(position);
+          await drawImage(image, position);
+        }
+        localStorage.setItem('savedPositions',JSON.stringify( positions))
       }
 
       var isMouseDown = false;
@@ -205,6 +226,7 @@ if (savedStates) {
         activeIndex = -1;
 
         drawImages();
+        localStorage.setItem('savedPositions', JSON.stringify(positions))
       }
 
       // すべての画像を描画する関数
@@ -302,7 +324,6 @@ App.controller("setting", function (page) {
   $(page).on("appShow", function (page) {
     var show_date = document.querySelector("#is_show_date");
     var show_logo = document.querySelector("#is_show_logo");
-
 /*
     // Initialize Switchery for show_date toggle
     var switchery_date = new Switchery(show_date);
@@ -341,6 +362,7 @@ App.controller("setting", function (page) {
 
 App.controller("summon", function (page) {
   $(page).on("appShow", function () {
+    var button = document.getElementById('clean')
     var Items = localStorage.getItem("selectedImage") || [];
     function generateHTML() {
       let html = "";
@@ -428,6 +450,16 @@ App.controller("summon", function (page) {
 
     // 初期表示時に画像の表示を更新
     updateImageDisplay();
+    function butotnClick(){
+      let clickedList = [];
+
+      localStorage.setItem("clickedList", JSON.stringify(clickedList));
+      window.alert('リストを空にしました')
+      App.load('home',()=>App.load('summon'))
+      
+    }
+
+    button.addEventListener("click",butotnClick);
   });
 });
 

@@ -49,5 +49,20 @@ It will be machine translated, but it's better than nothing (maybe).
 - Correction of some UI
 - Correction of some device bugs
 
+<h2 name='v.3.1.8a'>v.3.1.8a</h2>
+
+First version of v3 series
+The following two features will be added and tested on actual equipment.
+
+- Clean button on the list  
+Empties the previously selected character list.
+
+- Save image position  
+Saves and restores the moved position.
+Minimum Functions
+
+<h2>Next ver schedule</h2>
+Adjustment:'Save image position'
+first step: 'Toggle display'
 
 

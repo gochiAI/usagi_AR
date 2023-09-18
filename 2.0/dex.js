@@ -35,8 +35,8 @@ if (isMobile) {
 var CONSTRAINTS = {
   audio: false,
   video: {
-    width: { ideal: isMobile ? window.innerWidth : 1920 }, // モバイルデバイスなら画面幅を使用、それ以外なら1920を指定
-    height: { ideal: isMobile ? window.innerHeight : 1080 }, // モバイルデバイスなら画面高さを使用、それ以外なら1080を指定
+    width: { ideal: camera_Width }, // モバイルデバイスなら画面幅を使用、それ以外なら1920を指定
+    height: { ideal: camera_Height }, // モバイルデバイスなら画面高さを使用、それ以外なら1080を指定
     aspectRatio: { ideal: 16 / 9 }, // アスペクト比を設定（例：16:9）
     facingMode: null,
   },

@@ -397,14 +397,16 @@ App.controller("summon", function (page) {
     document.getElementById("chara").innerHTML = generateHTML();
     // クリックした画像のリストを保持する変数
     let clickedList = [];
-
+    let savedList = [];
     // localStorageからクリックした画像のリストを取得
     const storedList = localStorage.getItem("clickedList");
+    const savedPositions = localStorage.getItem('savedPositions');
     if (storedList) {
       clickedList = JSON.parse(storedList);
     }
-
-    // 画像クリック時の処理
+    if (savedPositions){
+      savedList = JSON.parse(savedPositions)
+    }    // 画像クリック時の処理
     function handleImageClick(imagePath) {
       imagePath = imagePath.replace("_thumb", "");
       const index = clickedList.indexOf(imagePath);
@@ -415,14 +417,17 @@ App.controller("summon", function (page) {
         if (clickedList.length > 3) {
           // リストの長さが3を超える場合、先頭の要素を削除
           clickedList.shift();
+          savedList.shift();
         }
       } else {
         // リストから削除
         clickedList.splice(index, 1);
+        savedList.splice(index, 1);
       }
 
       // リストをlocalStorageに保存
       localStorage.setItem("clickedList", JSON.stringify(clickedList));
+      localStorage.setItem("savedPositions", JSON.stringify(savedList));
     }
 
     // 画像要素にクリックイベントを追加
@@ -451,9 +456,10 @@ App.controller("summon", function (page) {
     // 初期表示時に画像の表示を更新
     updateImageDisplay();
     function butotnClick(){
-      let clickedList = [];
 
-      localStorage.setItem("clickedList", JSON.stringify(clickedList));
+      
+      localStorage.setItem("clickedList", JSON.stringify([]));
+      localStorage.setItem("savedPositions", JSON.stringify([]));
       window.alert('リストを空にしました')
       App.load('home',()=>App.load('summon'))
       

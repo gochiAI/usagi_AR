@@ -1,3 +1,33 @@
+/*時計用のフォント*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+/* デフォルトのスタイル */
+.switchD {
+  position: absolute; /* ポジションを絶対位置に設定 */
+  z-index: 1; /* 例：z-index を 1 に設定 */
+  /* その他のスタイルプロパティを指定 */
+}
+#show_date{
+  font-family: 'Open Sans', sans-serif;
+}
+/* タブレット向けのスタイル */
+@media (max-width: 768px) {
+  .switchD {
+    top: 50px; /* タブレット向けの位置設定 */
+    left: 20px; /* タブレット向けの位置設定 */
+    z-index: 2; /* タブレット向けの z-index を変更 */
+  }
+}
+
+/* スマートフォン向けのスタイル */
+@media (max-width: 480px) {
+  .switchD {
+    top: 20px; /* スマートフォン向けの位置設定 */
+    left: 10px; /* スマートフォン向けの位置設定 */
+    z-index: 3; /* スマートフォン向けの z-index を変更 */
+  }
+}
+
 /*
 main
 */
@@ -353,5 +383,9 @@ media devices
     --margin-label: 20px 0px 30px 0px;
     --margin-li: 60px 60px;
     --margin-other: 80px 50px;
+
   }
+#app-button{
+  transform: rotateX(90deg);
+}
 }

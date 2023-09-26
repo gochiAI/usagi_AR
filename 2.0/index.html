@@ -14,8 +14,8 @@
   <meta property="twitter:site" content="@gochi_ai" />
   <title>My App</title>
   <link rel="stylesheet" href="appjs/app.min.css" />
-<!--<script src="switchery-0.8.2/dist/switchery.js"></script>
-    <link rel="stylesheet" href="switchery-0.8.2/dist/switchery.css" />-->
+<script src="switchery-0.8.2/dist/switchery.js"></script>
+    <link rel="stylesheet" href="switchery-0.8.2/dist/switchery.css" />
 
   <link rel="stylesheet" href="./main.css" />
   <script src="./html2canvas.min.js"></script>
@@ -38,6 +38,8 @@
       <div class="app-button left loos" id="camera-toggle"></div>
       <div class="app-button right" id="set_setting" data-target="setting"></div>
       <div class="app-button left loos" id="set_summon" data-target="summon"></div>
+      <div class="switchD" id="show_logo" style="display: none;">0<img id="logo_image" src="" alt="Logo"></div>
+      <div class="switchD" id="show_date" style="display: none;"></div>
       <button class="app-button loos" id="shutter"></button>
 
       <div id="modal" style="display: none">
@@ -57,13 +59,13 @@
     <div class="app-content" id="setting">
       <div class="app-button" data-target="home"></div>
       <ul class="app-list">
-        <!--<label>Display(表示)</label>
-          <li>
+        <label>Display(表示)</label>
+          <!--<li>
             <input type="checkbox" id="is_show_date"  onclick="switchbool('show_date')"/>日付時間表示
-          </li>
+          </li>-->
           <li>
             <input type="checkbox" id="is_show_logo"  />ロゴ表示
-          </li>-->
+          </li>
         <label>guide(チュートリアル)</label>
         <button class="app-button" id="help" onclick="help()">CLICK HERE</button>
         <label>Other(その他)</label>
@@ -182,7 +184,6 @@
               description: stepDescriptions[userLanguage].chara,
               onNextClick: () => {
                 let clickedList = [];
-
                 localStorage.setItem("clickedList", JSON.stringify(clickedList));
 
                 clickedList.push("../aws.gochiusa.com/img/ekimemo/chino_smile.png");

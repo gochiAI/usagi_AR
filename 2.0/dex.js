@@ -2,7 +2,8 @@
 support by chatgpt
 don't copy
 */
-
+let per=Number
+let logo_IMG = String
 let windowWidth =
   window.innerWidth ||
   document.documentElement.clientWidth ||
@@ -18,6 +19,8 @@ var camera_Height = windowHeight;
 var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
 var is_PC = /(PC)/i.test(navigator.userAgent);
 if (isMobile) {
+  logo_IMG='../aws.gochiusa.com/img/logo.svg'
+  per=2
   if (screen.orientation) {
     switch (screen.orientation.type) {
       case "landscape-primary":
@@ -30,6 +33,16 @@ if (isMobile) {
         break;
     }
   }
+  else{
+    window.addEventListener('deviceorientation', function(e) {
+      console.log(e.alpha) // z軸 0 〜 360
+      console.log(e.beta)  // x軸 -180 〜 180
+      console.log(e.gamma) // y軸 -90 〜 90
+    })
+  }
+}else{
+  logo_IMG='../aws.gochiusa.com/img/logo_yoko.svg'
+  per=1.1
 }
 
 var CONSTRAINTS = {
@@ -63,21 +76,19 @@ App.controller("home", function (page) {
     
     canvas.style.display = "block";
     video.style.display = "block";
-    /*var savedStates = localStorage.getItem("toggleStates");
+    var savedStates = localStorage.getItem("toggleStates");
     if (savedStates) {
       var states = JSON.parse(savedStates);
       if(states.isShowLogo){
-        const image =  document.createElement('img');
-        image.src  = "/aws.gochiusa.com/img/closta_icon.png"
-        image.width = 100;
-        image.height = 100;
-        ctx.drawImage(image,0,0,100,100)
-      }}*/
+        const logoImage=document.getElementById('show_logo')
+        document.getElementById('logo_image').src=logo_IMG
+        logoImage.style.display = 'block';
+      }}
 
     function butotnClick() {
       canvas.style.display = "none";
       video.style.display = "none";
-
+      let logo=document.getElementById('logo_image')
       const combine = document.createElement("canvas");
       const ctx = combine.getContext("2d");
       combine.width = windowWidth;
@@ -85,7 +96,8 @@ App.controller("home", function (page) {
       // カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
       ctx.drawImage(video, 0, 0, windowWidth, windowHeight);
       ctx.drawImage(canvas, 0, 0, windowWidth, windowHeight);
-
+      ctx.drawImage(logo,2,0,logo.width*per,logo.height*per)
+      
       const canvasState = combine.toDataURL();
       screenshotImg.src = canvasState;
       // ダウンロードリンクの設定
@@ -324,7 +336,7 @@ App.controller("setting", function (page) {
   $(page).on("appShow", function (page) {
     var show_date = document.querySelector("#is_show_date");
     var show_logo = document.querySelector("#is_show_logo");
-/*
+
     // Initialize Switchery for show_date toggle
     var switchery_date = new Switchery(show_date);
 
@@ -356,7 +368,7 @@ App.controller("setting", function (page) {
       var states = JSON.parse(localStorage.getItem("toggleStates")) || {};
       states.isShowLogo = newState;
       localStorage.setItem("toggleStates", JSON.stringify(states));
-    });*/
+    });
   });
 });
 
@@ -457,7 +469,7 @@ App.controller("summon", function (page) {
     updateImageDisplay();
     function butotnClick(){
 
-      
+
       localStorage.setItem("clickedList", JSON.stringify([]));
       localStorage.setItem("savedPositions", JSON.stringify([]));
       window.alert('リストを空にしました')

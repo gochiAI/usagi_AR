@@ -20,7 +20,6 @@ var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
 var is_PC = /(PC)/i.test(navigator.userAgent);
 if (isMobile) {
   logo_IMG='../aws.gochiusa.com/img/logo.svg'
-  per=2
   if (screen.orientation) {
     switch (screen.orientation.type) {
       case "landscape-primary":
@@ -42,7 +41,6 @@ if (isMobile) {
   }
 }else{
   logo_IMG='../aws.gochiusa.com/img/logo_yoko.svg'
-  per=1.1
 }
 
 var CONSTRAINTS = {

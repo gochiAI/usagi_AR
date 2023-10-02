@@ -2,7 +2,7 @@
 support by chatgpt
 don't copy
 */
-let per=Number
+
 let logo_IMG = String
 let windowWidth =
   window.innerWidth ||
@@ -96,7 +96,7 @@ App.controller("home", function (page) {
       // カメラの映像とdocument.getElementById("canvas");の状態を組み合わせて画像を作成する
       ctx.drawImage(video, 0, 0, windowWidth, windowHeight);
       ctx.drawImage(canvas, 0, 0, windowWidth, windowHeight);
-      ctx.drawImage(logo,2,0,logo.width*per,logo.height*per)
+      ctx.drawImage(logo,2,0,logo.width,logo.height)
       
       const canvasState = combine.toDataURL();
       screenshotImg.src = canvasState;
@@ -146,19 +146,22 @@ App.controller("home", function (page) {
     async function drawImagesOnCanvas(images) {
       const savedPositions = localStorage.getItem('savedPositions');
 const positions = savedPositions ? JSON.parse(savedPositions) : [];
+const sevedpers = localStorage.getItem('sevedpers');
+const imgpers = sevedpers ? JSON.parse(sevedpers):[];
 let startX = -100;
 let startY = 50;
-      if (savedPositions){
 
+      if (savedPositions){
       for (let i = 0; i < images.length; i++) {
+        const img = images[i]
         if (positions[i]){
           const position =  positions[i]
-          await drawImage(images[i], position);
+          await drawImage(img, position,img.width*imgpers[i],img.height*imgpers[i]);
         }
         else{
           const position = { x: startX+(100*i), y: startY+(100*i) }
           positions.push(position);
-          await drawImage(images[i], position);
+          await drawImage(img, position,img.width,img.height);
         }
         
         localStorage.setItem('savedPositions',JSON.stringify( positions))
@@ -170,9 +173,10 @@ let startY = 50;
           startX += 100;
           const position = { x: startX, y: startY };
           positions.push(position);
-          await drawImage(image, position);
+          await drawImage(image, position,image.width,image.height);
         }
-        localStorage.setItem('savedPositions',JSON.stringify( positions))
+        localStorage.setItem('savedPositions',JSON.stringify(positions))
+
       }
 
       var isMouseDown = false;

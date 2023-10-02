@@ -61,8 +61,21 @@ Empties the previously selected character list.
 Saves and restores the moved position.
 Minimum Functions
 
-<h2>Next ver schedule</h2>
-Adjustment:'Save image position'
-first step: 'Toggle display'
+<h2 name="v.3.2.0">v.3.2.0</h2>
 
+- Adjustment:'Save image position'
+
+    - Changed to delete the 'saved image position' when the target character is hidden.  
+    - The list of 'saved image positions' is now also emptied when character list clean is performed.
+
+- first step: 'Toggle display'
+
+    - The Show Logo toggle is now functional in the settings.  
+    - Changed to show the logo in the upper left corner when the option is turned on.  
+    - Uploaded two types of logos in svg format.  
+
+<h2>Next ver schedule</h2>
+Add : Display Date {'Toggle display'}
+fix,add : orientation
+preparation : Zoom in/out
 

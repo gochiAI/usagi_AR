@@ -2,6 +2,13 @@
 support by chatgpt
 don't copy
 */
+window.addEventListener('offline', () => {
+  console.log('offline');
+});
+
+window.addEventListener('online', () => {
+  console.log('online');
+});
 
 let logo_IMG = String
 let windowWidth =
@@ -17,7 +24,7 @@ var camera_Width = windowWidth;
 var camera_Height = windowHeight;
 
 var isMobile = /(iPhone|Android|Mobile)/i.test(navigator.userAgent);
-var is_PC = /(PC)/i.test(navigator.userAgent);
+
 if (isMobile) {
   logo_IMG='../aws.gochiusa.com/img/logo.svg'
   if (screen.orientation) {
@@ -25,10 +32,12 @@ if (isMobile) {
       case "landscape-primary":
         camera_Width = windowWidth;
         camera_Height = windowHeight;
+        logo_IMG='../aws.gochiusa.com/img/logo.svg'
         break;
       case "portrait-primary":
         camera_Width = windowHeight;
         camera_Height = windowWidth;
+        logo_IMG='../aws.gochiusa.com/img/logo.svg'
         break;
     }
   }
@@ -146,6 +155,7 @@ App.controller("home", function (page) {
 const positions = savedPositions ? JSON.parse(savedPositions) : [];
 const sevedpers = localStorage.getItem('sevedpers');
 const imgpers = sevedpers ? JSON.parse(sevedpers):[];
+
 let startX = -100;
 let startY = 50;
 
@@ -180,39 +190,62 @@ let startY = 50;
       var isMouseDown = false;
       var activeIndex = -1; // アクティブな画像のインデックス
 
-      canvas.addEventListener("mousedown", startDrag);
+      /*canvas.addEventListener("mousedown", startDrag);
       canvas.addEventListener("mousemove", drag);
-      canvas.addEventListener("mouseup", endDrag);
+      canvas.addEventListener("mouseup", endDrag);*/
 
-      canvas.addEventListener("touchstart", startDrag);
-      canvas.addEventListener("touchmove", drag);
-      canvas.addEventListener("touchend", endDrag);
+      canvas.addEventListener("touchstart", ts);
+      canvas.addEventListener("touchmove", tm);
+      canvas.addEventListener("touchend", tc);
+      
+
       // ドラッグ開始時の処理
-      function startDrag(event) {
-        isMouseDown = true;
-        event.preventDefault();
+      function ts(event) {
+        //指が一本の時
+        if (event.touches.length == 1) {
+          isMouseDown = true;
+          event.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          let offsetX, offsetY;
+          if (event.touches) {
+            offsetX = event.touches[0].clientX - rect.left;
+            offsetY = event.touches[0].clientY - rect.top;
+          } else {
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
+          }
 
-        const rect = canvas.getBoundingClientRect();
-        let offsetX, offsetY;
-        if (event.touches) {
-          offsetX = event.touches[0].clientX - rect.left;
-          offsetY = event.touches[0].clientY - rect.top;
-        } else {
-          offsetX = event.clientX - rect.left;
-          offsetY = event.clientY - rect.top;
+          // クリック位置に画像があるかを判定
+          activeIndex = positions.findIndex((position, index) => {
+            return (
+              offsetX >= position.x &&
+              offsetX <= position.x + images[index].width &&
+              offsetY >= position.y &&
+              offsetY <= position.y + images[index].height
+            );
+          });
+        } else if (event.touches.length == 2) {
+          // onTouchStart
+          isMouseDown = false;
+          event.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          // 2本指でタッチした座標を取得
+          const touch1 = event.touches[0];
+          const touch2 = event.touches[1];
+          const x1 = touch1.clientX - rect.left;
+          const y1 = touch1.clientY - rect.top;
+          const x2 = touch2.clientX - rect.left;
+          const y2 = touch2.clientY - rect.top;
+          // 2本指でタッチした距離を計算
+          const distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+          // タッチした状態を保存
+          this.startDistance = distance;
+
+
         }
-
-        // クリック位置に画像があるかを判定
-        activeIndex = positions.findIndex((position, index) => {
-          return (
-            offsetX >= position.x &&
-            offsetX <= position.x + images[index].width &&
-            offsetY >= position.y &&
-            offsetY <= position.y + images[index].height
-          );
-        });
       }
-      function drag(event) {
+
+      function tm(event) {
         if (isMouseDown && activeIndex !== -1) {
           event.preventDefault();
           const rect = canvas.getBoundingClientRect();
@@ -231,16 +264,51 @@ let startY = 50;
 
           drawImages();
         }
+        else if(event.touches.length == 2){
+          this.startDistance = distance;
+          event.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          //先程の情報と比較しながら拡大縮小
+          const touch1 = event.touches[0];
+          const touch2 = event.touches[1];
+          const x1 = touch1.clientX - rect.left;
+          const y1 = touch1.clientY - rect.top;
+          const x2 = touch2.clientX - rect.left;
+          const y2 = touch2.clientY - rect.top;
+          // 2本指でタッチした距離を計算
+          this.endDistance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+          // タッチした状態を保存
+          console.log(this.startDistance,this.endDistance)
+
+          const scale = this.startScale * (this.endDistance / this.startDistance);
+
+          imgpers[activeIndex] = scale;
+          localStorage.setItem('sevedpers',JSON.stringify(imgpers))
+          drawImages();
+
+
+        }
+       
       }
 
       // ドラッグ終了時の処理
-      function endDrag(event) {
+      function tc(event) {
+        if(event.touches.length == 1){
         event.preventDefault();
         isMouseDown = false;
         activeIndex = -1;
 
         drawImages();
-        localStorage.setItem('savedPositions', JSON.stringify(positions))
+        localStorage.setItem('savedPositions', JSON.stringify(positions))}
+        else{
+          event.preventDefault();
+          isMouseDown = false;
+          activeIndex = -1;
+  
+          drawImages();
+          localStorage.setItem('sevedpers',JSON.stringify(imgpers))
+        
+        }
       }
 
       // すべての画像を描画する関数
